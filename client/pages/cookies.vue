@@ -1,7 +1,7 @@
 <template>
   <div class="container-about">
-<h1>Politica Cookie Pentru VACALMU</h1>
-
+    <h1><b>Politica Cookie Pentru VACALMU</b></h1>
+    <div class="content">
 <p>Aceasta este Politica privind Cookie-urile pentru VACALMU, accesibilă de la http://vacalmu.live</p>
 
 <p><strong>Ce sunt Cookie-urile?</strong></p>
@@ -14,7 +14,7 @@
 
 <p>Folosim cookie-uri din mai multe motive detaliate mai jos. Din păcate, în majoritatea cazurilor, nu există opțiuni standard din industrie pentru dezactivarea cookie-urilor fără a dezactiva complet funcționalitatea și caracteristicile pe care le adaugă pe acest site. Este recomandat să lăsați toate cookie-urile dacă nu sunteți sigur dacă aveți nevoie de ele sau nu în cazul în care acestea sunt utilizate pentru a furniza un serviciu pe care îl utilizați.</p>
 
-<p><strong>Disabling Cookies</strong></p>
+<p><strong>înlăturarea Cookies</strong></p>
 
 <p>Puteți preveni setarea cookie-urilor ajustând setările din browserul dvs. (consultați Ajutor pentru browser pentru a face acest lucru). Rețineți că dezactivarea cookie-urilor va afecta funcționalitatea acestui și a multor alte site-uri web pe care le vizitați. Dezactivarea cookie-urilor va duce, de obicei, la dezactivarea anumitor funcționalități și caracteristici ale acestui site. Prin urmare, este recomandat să nu dezactivați cookie-urile. Această politică privind cookie-urile a fost creată cu ajutorul <a href="https://www.cookiepolicygenerator.com/cookie-policy-generator/">CookiePolicyGenerator.com</a>.</p>
 <p><strong>Cookie-urile pe care le folosim</strong></p>
@@ -76,7 +76,7 @@
 
 <li>Vizitând acest link: http://vacalmu.live/contact</li>
 </ul> 
-    
+    </div>
   </div>
 </template>
 

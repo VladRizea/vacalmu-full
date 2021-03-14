@@ -11,22 +11,22 @@
 
     <h1>Ultimele articole VACALMU</h1>
 
-    <div class="article-grid">
+    <ul class="article-grid">
       
         <gridArticleCard  class="grid-component"  v-for="article of newArticles " :key="article"  :article="articles[0][article]" ></gridArticleCard>
       
-    </div>
+    </ul>
 
     <div v-if="showMoreArticlesButtons" class="load-more-newest-articles" @click="loadMoreArticlesNewest()"><b>Încarcă mai mult</b></div>
     <div v-if="!showMoreArticlesButtons" class="load-more-newest-articles" @click="newArticles = 3; showMoreArticlesButtons=true;"><b>Compactează</b></div>
     
     <div v-for="category of articles[1].length" :key="category">
       <h2>Articole din categoria {{articles[1][category - 1].name}}</h2> 
-      <div class="article-grid">
+      <ul class="article-grid">
         
           <gridArticleCard  class="grid-component"  v-for="categoryArticle of 3 " :key="categoryArticle"  :article="articles[1][category - 1].articles[articles[1][category - 1].articles.length - categoryArticle]" ></gridArticleCard>
        
-      </div>
+      </ul>
       <a  :href="'/categorii/' + articles[1][category-1].name"><div class="load-more-newest-articles" ><b>Alte articole</b></div></a>
     </div>
 
@@ -46,14 +46,12 @@ import axios from 'axios';
 
 import topArticleCard from '../components/top_article_card';
 import gridArticleCard from '../components/grid_article_card';
-import landscapeArticleCard from '../components/landscape_article_card';
 
 
 export default {
     components:{
       topArticleCard,
       gridArticleCard,
-      landscapeArticleCard,
   
     },
     data() {
@@ -194,6 +192,9 @@ a:hover{
     @include justify-content(center);
     @include flex-direction(row);
     flex-wrap: wrap;
+    list-style: none;
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
   }
   .landscape-grid{
     @include flexbox();
@@ -211,7 +212,10 @@ a:hover{
     @include align-items(center);
     @include justify-content(center);
     @include flex-direction(column);
-    margin: 0 0.6vw;
+    margin: 10px 0.6vw;
+    list-style: none;
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
   }
   .landscape-grid{
     @include flexbox();

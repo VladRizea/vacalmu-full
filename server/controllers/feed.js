@@ -21,7 +21,6 @@ exports.getFeed = asyncHandler(async (req, res, next) => {
 
     feed.push(categories);
 
-    console.log(feed);
     res.status(200).json({content: feed});
 });
 

@@ -1,11 +1,11 @@
 <template>
   <div class="container-articles">
-    <h1><b>Articole din categoria {{category}}</b></h1>
-    <div v-if="articles[0]!=null" class="article-grid">
-      <landscapeArticleCard  class="grid-component"  v-for="article of articles " :key="article._id"  :article="article" ></landscapeArticleCard>
-    </div>
+    <h1><b>Expuneri din categoria {{category}}</b></h1>
+    <ul v-if="articles[0]!=null" class="article-grid">
+      <gridArticleCard  class="grid-component"  v-for="article of articles " :key="article._id"  :article="article" ></gridArticleCard>
+    </ul>
     <div v-if="articles[0]==null" class="article-grid">
-    <h1><b>Nu există articole în această categorie...</b></h1>
+    <h1><b>Nu există expuneri în această categorie...</b></h1>
     <h1><b>Dar dacă vrei să existe contactează-ne;)!</b></h1>
     </div>
   </div>
@@ -15,18 +15,11 @@
 <script>
 import axios from 'axios';
 
-import topArticleCard from '../../components/top_article_card';
 import gridArticleCard from '../../components/grid_article_card';
-import topIndexComponent from '../../components/top_index_component';
-import landscapeArticleCard from '../../components/landscape_article_card';
-
 
 export default {
     components:{
-      topArticleCard,
       gridArticleCard,
-      topIndexComponent,
-      landscapeArticleCard,
     },
 
     async asyncData({$axios,route}) {
@@ -39,17 +32,17 @@ export default {
     },
           head() {
     return {
-      title: `Articole din categoria ${this.category}`,
+      title: `Expuneri din categoria ${this.category}`,
       meta: [
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: `Articole din categoria ${this.category}`
+          content: `Expuneri din categoria ${this.category}`
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: `Biblioteca de articole Vacalmu din categoria ${this.category}`
+          content: `Biblioteca de Expuneri Vacalmu din categoria ${this.category}`
         },
         {
           hid: 'twitter:image',
@@ -59,17 +52,17 @@ export default {
         {
           hid: 'twitter:image:alt',
           name: 'twitter:image:alt',
-          content:  `Articole din categoria ${this.category}`
+          content:  `Expuneri din categoria ${this.category}`
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          content:  `Articole din categoria ${this.category}`
+          content:  `Expuneri din categoria ${this.category}`
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: `Biblioteca de articole Vacalmu din categoria ${this.category}`
+          content: `Biblioteca de Expuneri Vacalmu din categoria ${this.category}`
         },
         {
           hid: 'og:image',
@@ -84,7 +77,7 @@ export default {
         {
           hid: 'og:image:alt',
           property: 'og:image:alt',
-          content:  `Articole din categoria ${this.category}`
+          content:  `Expuneri din categoria ${this.category}`
         }
       ]
     }
@@ -126,11 +119,13 @@ body{
     @include align-items(center);
     @include justify-content(center);
     @include flex-direction(row);
-      flex-wrap: wrap;
-    
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
   }
   .grid-component{
-    margin: 0.3vw;
+    margin: 5px 0;
   }
 }
 }

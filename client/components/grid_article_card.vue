@@ -1,7 +1,7 @@
 <template>
   
 
-<div class="gcard" @click="flip()">
+<li class="gcard" @click="flip()">
 
   <div class="gcard__side gcard__side--front" v-bind:class="{ 'active_side-front': isFlipped }">
       <img class="thumbnail-grid-gcard" loading="lazy" :src="article.thumbnailSquare" :alt="article.slug">
@@ -19,7 +19,7 @@
         </div>
         
         
-        <a :href="'/articole/' + article.slug" class="description-grid-card ">{{truncate(article.description, 100)}}</a>
+        <a :href="'/expuneri/' + article.slug" class="description-grid-card ">{{truncate(article.description, 100)}}</a>
 
         <div class="name-and-date-grid-card">
           <a class=" small-text-grid-card" :href="'/publishers/' + article.user.name">{{article.user.name}}</a>
@@ -28,7 +28,7 @@
         </div>
   </div>
 
-</div>
+</li>
 
 
 

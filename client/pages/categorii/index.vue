@@ -19,7 +19,6 @@ import axios from 'axios';
 
 import topArticleCard from '../../components/top_article_card';
 import landscapeArticleCard from '../../components/landscape_article_card';
-import topIndexComponent from '../../components/top_index_component';
 
 export default {
     components:{
@@ -53,7 +52,7 @@ export default {
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: 'Categoriile de articole Vacalmu'
+          content: 'Categorii de expuneri'
         },
         {
           hid: 'twitter:image',
@@ -73,7 +72,7 @@ export default {
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'Categoriile de articole Vacalmu'
+          content: 'Categorii de expuneri'
         },
         {
           hid: 'og:image',

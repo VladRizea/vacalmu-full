@@ -43,7 +43,7 @@
             </a>
 
             <div class="navbar-component log-out-button">
-                <b-icon class="icon"  icon="box-arrow-left" font-scale="2.5" @click="logOutUser()"></b-icon>
+                <a href="/login"><b-icon class="icon"  icon="box-arrow-left" font-scale="2.5" @click="logOutUser()"></b-icon></a>
                 <p>Log out</p>
             </div>
 
@@ -72,8 +72,7 @@ export default {
   },
   methods:{
     async logOutUser(){
-           await this.$axios.$get('/api/v1/auth/logout',{
-            },
+           await this.$axios.$get('/api/v1/auth/logout',
           {withCredentials: true})
           .then();
     },

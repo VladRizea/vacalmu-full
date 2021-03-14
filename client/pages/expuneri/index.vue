@@ -4,17 +4,17 @@
     <div  class="search-bar">
         <b-icon v-if="searchArticle === ''" class="icon" id="bold" icon="search" ></b-icon>
         <b-icon v-if="searchArticle !== ''" class="icon x" id="bold" icon="x" size="4"  @click="resetSearch()"></b-icon>
-        <input id="search" v-model="searchArticle"  placeholder="Caută un articol" autocomplete="off"/>
+        <input id="search" v-model="searchArticle"  placeholder="Caută o expunere" autocomplete="off"/>
         <br>
     </div>
 
-    <div v-if="!searchedArticles[0]" class="article-grid">
+    <ul v-if="!searchedArticles[0]" class="article-grid">
       <gridArticleCard  class="grid-component"  v-for="article of articles " :key="article._id"  :article="article" ></gridArticleCard>
-    </div>
+    </ul>
     
-    <div v-if="searchedArticles[0]" class="article-grid">
+    <ul v-if="searchedArticles[0]" class="article-grid">
       <gridArticleCard  class="grid-component"  v-for="article of searchedArticles " :key="article._id"  :article="article" ></gridArticleCard>
-    </div>
+    </ul>
   </div>
 </template>
 
@@ -73,17 +73,17 @@ export default {
   },
       head() {
     return {
-      title: `Articole VACALMU`,
+      title: `expuneri Vacalmu`,
       meta: [
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: 'Articole'
+          content: 'Expuneri'
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: 'Biblioteca de articole Vacalmu'
+          content: 'Biblioteca de expuneri Vacalmu'
         },
         {
           hid: 'twitter:image',
@@ -93,17 +93,17 @@ export default {
         {
           hid: 'twitter:image:alt',
           name: 'twitter:image:alt',
-          content: 'Articole'
+          content: 'Expuneri'
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          content: 'Articole'
+          content: 'Expuneri'
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'Biblioteca de articole Vacalmu'
+          content: 'Biblioteca de expuneri Vacalmu'
         },
         {
           hid: 'og:image',
@@ -118,7 +118,7 @@ export default {
         {
           hid: 'og:image:alt',
           property: 'og:image:alt',
-          content: 'Articole'
+          content: 'Expuneri'
         }
       ]
     }
@@ -153,9 +153,9 @@ body{
     @include justify-content(center);
     @include flex-direction(row);
     background: $cGhostWhite;
-    width: 300px;
+    width: 90%;
     height: 60px;
-    margin:  50px 0px 50px 40px ;
+    margin:  50px auto ;
     .icon{
   
         color: gray;
@@ -190,11 +190,13 @@ body{
     @include align-items(center);
     @include justify-content(center);
     @include flex-direction(row);
-      flex-wrap: wrap;
-    
+    flex-wrap: wrap;
+    list-style:none;
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
   }
   .grid-component{
-    margin: 0.3vw;
+    margin: 5px 0;
   }
 }
 

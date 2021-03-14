@@ -1,10 +1,10 @@
 <template>
   <div class="grid-card">
-       <a :href="'/articole/' + article.slug"><img class="thumbnail-grid-card" :src="article.thumbnail" :alt="article.slug"></a>
+       <a :href="'/expuneri/' + article.slug"><img class="thumbnail-grid-card" :src="article.thumbnail" :alt="article.slug"></a>
       <div class="card-grid-content">
         <a class="small-text-grid-card component" :href="'/categorii/' + article.category"> {{article.category}}</a>
-        <a :href="'/articole/' + article.slug" class="title-grid-card component"><b>{{article.title}}</b></a>
-        <a :href="'/articole/' + article.slug" class="description-grid-card component">{{article.description}}</a>
+        <a :href="'/expuneri/' + article.slug" class="title-grid-card component"><b>{{article.title}}</b></a>
+        <a :href="'/expuneri/' + article.slug" class="description-grid-card component">{{article.description}}</a>
         <br>
         <div class="component name-and-date-grid-card">
           <a class=" small-text-grid-card" :href="'/publishers/' + article.user.name">{{article.user.name}}</a>

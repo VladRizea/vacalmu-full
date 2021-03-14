@@ -1,10 +1,11 @@
 <template>
   <div class="container-about">
-    <h1><b>Cine este VACALMU?</b></h1>
+    <h1 id="despre">Despre</h1>
+
     <div class="content">
-      <p>
-        Noi toti suntem Vacalmu! Tinerii de pretutindeni care au ceva de spus!
-      </p>
+      <p>Bun venit la VACALMU sursa ta numărul 1 de informatie pentru apetitul tău de cititor.
+      Misiunea noastră este să creem materiale cu care te poti identifica.</p>
+
     </div>
     
   </div>
@@ -24,12 +25,12 @@ export default {
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: `Articole din categoria ${this.category}`
+          content: `Despre proiectul VACALMU`
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: `Biblioteca de articole Vacalmu din categoria ${this.category}`
+          content: `Despre proiectul VACALMU`
         },
         {
           hid: 'twitter:image',
@@ -39,17 +40,17 @@ export default {
         {
           hid: 'twitter:image:alt',
           name: 'twitter:image:alt',
-          content:  `Articole din categoria ${this.category}`
+          content:  `Despre proiectul VACALMU`
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          content:  `Articole din categoria ${this.category}`
+          content:  `Despre proiectul VACALMU`
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: `Biblioteca de articole Vacalmu din categoria ${this.category}`
+          content: `Despre proiectul VACALMU`
         },
         {
           hid: 'og:image',
@@ -64,7 +65,7 @@ export default {
         {
           hid: 'og:image:alt',
           property: 'og:image:alt',
-          content:  `Articole din categoria ${this.category}`
+          content:  `Despre proiectul VACALMU`
         }
       ]
     }
@@ -74,7 +75,7 @@ export default {
 
 
 
-<style lang='scss' scoped>
+<style lang='scss' >
   
 @import "../assets/flex";
 @import "../assets/colors";
@@ -82,7 +83,7 @@ export default {
 @import "../assets/transition";
 
 body{
-  background: $cGhostWhite;
+  background: $cBlackGray;
 }
 .container-about {
   margin: 50px auto 10px auto;
@@ -93,6 +94,7 @@ body{
   @include justify-content(flex-start);
   @include align-content(center);
   @include flex-direction(column);
+  color: $cGhostWhite;
 
   h1{
     margin: 50px 20px;

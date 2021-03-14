@@ -34,7 +34,6 @@ exports.getTokens = asyncHandler(async (req, res, next) => {
 
 exports.register = asyncHandler(async (req, res, next) => {
   //* Get hashed token
-  console.log(req.body.generatorToken);
   if (!req.body.generatorToken) req.body.generatorToken = 'sancky';
 
   const generatorTokenCrypted = crypto
@@ -67,7 +66,6 @@ exports.register = asyncHandler(async (req, res, next) => {
   });
  
   token.delete();
-  console.log(token);
   sendTokenResponse(user, 200, res);
 });
 
@@ -188,7 +186,6 @@ exports.forgotpassword = asyncHandler(async (req, res, next) => {
   try {
     res.status(200).json({ success: true, data: 'Email sent' });
   } catch (err) {
-    console.log(err);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
@@ -234,7 +231,6 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 const sendTokenResponse = (user, statusCode, res) => {
   //* Create token
   const token = user.getSignedJwtToken();
-  console.log(token);
   res.header('Access-Control-Allow-Origin', '*');
 
   const options = {

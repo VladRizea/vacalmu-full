@@ -38,11 +38,9 @@ const ReviewSchema = new mongoose.Schema({
 
 ReviewSchema.methods.like = async function (userId) {
   if (!this.likers.includes(userId) && !this.unlikers.includes(userId)) {
-    console.log('1');
     this.likes++;
     this.likers.push(userId);
   } else if (!this.likers.includes(userId) && this.unlikers.includes(userId)) {
-    console.log('2');
     this.likes++;
     this.unlikes--;
     this.likers.push(userId);
@@ -52,7 +50,6 @@ ReviewSchema.methods.like = async function (userId) {
       this.unlikers.splice(index, 1);
     }
   } else if (this.likers.includes(userId) && !this.unlikers.includes(userId)) {
-    console.log('3');
     this.likes--;
     this.unlikes++;
     this.unlikers.push(userId);

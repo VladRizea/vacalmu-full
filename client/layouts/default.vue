@@ -30,8 +30,8 @@
       </div>
 
       <div class="link-column">
-        <a class="link-button"  href="/articole" @click="isOpen=false">
-                <p class=" link-button-text">Articole</p>
+        <a class="link-button"  href="/expuneri" @click="isOpen=false">
+                <p class=" link-button-text">Expuneri</p>
         </a>
 
         <a class="link-button"  href="/categorii" @click="isOpen=false">
@@ -76,7 +76,6 @@
             <a href="" class="social">YouTube</a>
           </div>
           <div  class="credits-stacked">  
-            <a class="social" href="/termeni-si-conditii">Termeni și condiții</a>
             <a class="social" href="/politica-de-confidentialitate">Politica de confidențialitate</a>
             <a class="social" href="/cookies">Cookies</a>
           </div>
@@ -116,7 +115,10 @@ export default {
   },
   methods:{
     setCookiesTrue(){
-      document.cookie = "c_p=1";
+      var days = new Date(
+      Date.now() + 30 * 24 * 60 * 60 * 1000
+    );
+      document.cookie = "c_p=1;expires=" + days;
       this.cookiePolicy = false;
     }
   }

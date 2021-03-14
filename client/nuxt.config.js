@@ -19,6 +19,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { hid: 'stripe', src: 'https://www.googletagmanager.com/gtag/js?id=G-YP3GYY957K' }
     ]
   },
 
@@ -30,8 +33,11 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-  ],
-  
+    {
+        src: './plugins/GoogleAnalytics.js',
+        mode: 'client'
+    }
+],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
@@ -44,19 +50,32 @@ export default {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     '@nuxtjs/proxy',
-    
+    '@nuxtjs/google-adsense',
   ],
  
- 
+  'google-adsense': {
+    id: 'ca-pub-3630292987556158'
+  },
+
+  
   axios: {
     baseURL: 'http://localhost:5000',
     browserBaseURL : 'http://localhost:5000',
   },
-
+  
   proxy: {
     '/api/v1': { target: 'http://localhost:5000/api/v1', pathRewrite: {'^/api/v1': ''} }
   },
+
+
+  // axios: {
+  //   baseURL: 'http://vacalmu-server:5000',
+  //   browserBaseURL : 'http://vacalmu-server:5000',
+  // },
   
+  // proxy: {
+  //   '/api/v1': { target: 'http://vacalmu-server:5000/api/v1', pathRewrite: {'^/api/v1': ''} }
+  // },
 
   outputDir: path.resolve(__dirname, '../server/public'),
   

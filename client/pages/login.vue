@@ -121,7 +121,7 @@ export default {
 @import "../assets/transition";
 
 body{
-    background: $cGhostWhite;
+    background: $cBlackGray;
     align-content: center;
     .login-big-wrapper{
         @include flexbox();
@@ -161,11 +161,11 @@ body{
                             background: $cGhostWhite;
                             height:50px;
                             width:250px;
-                            border: solid 1px black;
+                            border: solid 1px $cBlackGray;
                             @include transition(all, 0.3s, linear);
                             font-size: 20px;
                             &:focus{
-                            background: white;
+                            background: $cGhostWhite;
                         }
                         }
                         .icon-see-password-wrapper{
@@ -188,11 +188,11 @@ body{
                         background: $cGhostWhite;
                         height:50px;
                         width:300px;
-                        border: solid 1px black;
+                        border: solid 1px $cBlackGray;
                         @include transition(all, 0.3s, linear);
                         font-size: 20px;
                         &:focus{
-                        background: white;
+                        background: $cGhostWhite;
                         }
                     }
                     .forgot-password{

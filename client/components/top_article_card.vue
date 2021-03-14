@@ -2,8 +2,8 @@
   <div class="top-article">
     <div class="content-column-top-article">
       <a class="category-top-article component-top-article" :href="'/categorii/' + article.category"> {{article.category}}</a>
-      <a :href="'/articole/' + article.slug" class="title-top-article component-top-article"><b>{{article.title}}</b></a>
-      <a :href="'/articole/' + article.slug" class="description-top-article component-top-article">{{article.description  }}</a>
+      <a :href="'/expuneri/' + article.slug" class="title-top-article component-top-article"><b>{{article.title}}</b></a>
+      <a :href="'/expuneri/' + article.slug" class="description-top-article component-top-article">{{article.description  }}</a>
       <br>
       <div class="component-top-article name-and-date-top-article">
         <a class=" small-text-top-article" :href="'/publishers/' + article.user.name">{{article.user.name}}</a>
@@ -12,8 +12,8 @@
     </div>
     
     <div class="thumbnail-top-article-component">
-      <a :href="'/articole/' + article.slug"><img class="thumbnail-top-article" :src="article.thumbnail" :alt="article.slug"></a>
-      <a :href="'/articole/' + article.slug"><div class="thumbnail-top-article-overlay"></div></a>
+      <a :href="'/expuneri/' + article.slug"><img class="thumbnail-top-article" :src="article.thumbnail" :alt="article.slug"></a>
+      <a :href="'/expuneri/' + article.slug"><div class="thumbnail-top-article-overlay"></div></a>
     </div>
     
 
