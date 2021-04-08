@@ -11,23 +11,36 @@
 
     <h1>Ultimele articole VACALMU</h1>
 
-    <ul class="article-grid">
-      
-        <gridArticleCard  class="grid-component"  v-for="article of newArticles " :key="article"  :article="articles[0][article]" ></gridArticleCard>
-      
-    </ul>
+      <div class="wrapper-article-grid">
 
-    <div v-if="showMoreArticlesButtons" class="load-more-newest-articles" @click="loadMoreArticlesNewest()"><b>Încarcă mai mult</b></div>
-    <div v-if="!showMoreArticlesButtons" class="load-more-newest-articles" @click="newArticles = 3; showMoreArticlesButtons=true;"><b>Compactează</b></div>
-    
+        <div class="article-grid-placeholder"></div>
+
+        <client-only>
+            <carousel class="article-grid"  :responsive="{0:{items:1,nav:false},600:{items:2,nav:false},1020:{items:3,nav:false}}" >
+                <gridArticleCard  class="grid-component" v-for="article of articles[0].length -1 " :key="article"  :article="articles[0][article]" ></gridArticleCard>
+            </carousel>
+        </client-only>
+
+      </div>
+
+<br>
+
     <div v-for="category of articles[1].length" :key="category">
       <h2>Articole din categoria {{articles[1][category - 1].name}}</h2> 
-      <ul class="article-grid">
-        
-          <gridArticleCard  class="grid-component"  v-for="categoryArticle of 3 " :key="categoryArticle"  :article="articles[1][category - 1].articles[articles[1][category - 1].articles.length - categoryArticle]" ></gridArticleCard>
        
-      </ul>
-      <a  :href="'/categorii/' + articles[1][category-1].name"><div class="load-more-newest-articles" ><b>Alte articole</b></div></a>
+
+      <div class="wrapper-article-grid">
+
+      <div class="article-grid-placeholder"></div>
+
+      <client-only>
+          <carousel class="article-grid"  :responsive="{0:{items:1,nav:false},600:{items:2,nav:false},1020:{items:3,nav:false}}">
+            <gridArticleCard  class="grid-component"  v-for="categoryArticle of 3 " :key="categoryArticle"  :article="articles[1][category - 1].articles[articles[1][category - 1].articles.length - categoryArticle]" ></gridArticleCard>
+          </carousel>
+      </client-only>
+
+      </div>
+      <a  :href="'/categorii/' + articles[1][category-1].name"><div class="load-more-newest-articles" ><b>Mai mult</b></div></a>
     </div>
 
   </div>
@@ -52,7 +65,7 @@ export default {
     components:{
       topArticleCard,
       gridArticleCard,
-  
+       
     },
     data() {
       return {
@@ -101,7 +114,7 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'twitter:image:alt',
@@ -121,12 +134,12 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'og:image:secure_url',
           property: 'og:image:secure_url',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'og:image:alt',
@@ -138,6 +151,7 @@ export default {
   }
 }
 </script>
+
 
 
 <style lang='scss'>
@@ -156,8 +170,7 @@ a:hover{
 }
 
 .index-container {
-  margin: 50px auto  0.6vw auto;
-  padding: 0 0.3vw ;
+  margin: 50px auto  10px auto;
   width: 100%;
   max-width: 1620px;
   min-height: 100vh;
@@ -170,60 +183,186 @@ a:hover{
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    margin:0.6vw 0.3vw 0.3vw 0.3vw;
+    @include xl{  
+     margin:15px; 
+    }
+    margin:10px 5px 5px 5px;
   }
 
-    h1{
-      color: $cGhostWhite;
-      margin: 50px 10px 50px 10px;
-    }
-    h2{
-      color: $cGhostWhite;
-      margin: 50px 10px 50px 10px;
-    }
-@include xl{  
-
-
+  h1{
+    color: $cGhostWhite;
+    margin: 50px 10px 50px 10px;
+  }
+  h2{
+    color: $cGhostWhite;
+    margin: 50px 10px 50px 10px;
+  }
+  @include xl{  
+.wrapper-article-grid{
+  position: relative; 
 
     .article-grid{
-    perspective: 600px;
+    
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include flex-direction(row);
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0; /* To remove default bottom margin */ 
-    padding: 0; /* To remove default left padding */
+    align-self: center;
+     
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top: 0;
+
+    height: 600px;
+    width: 95%;
+}
+
   }
-  .landscape-grid{
+ .article-grid-placeholder{
+    width: 100%;
+    height: 600px;
+  }
+
+ }
+
+  }
+  @include lg{  
+
+    .wrapper-article-grid{
+  position: relative; 
+
+
+   .article-grid{
+    
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include flex-direction(column);
-    margin: 0 0.3vw;
+    align-self: center;
+
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top: 0;
+    position: absolute;
+
+    height: 600px;
+    width: 95%;
+
   }
+  .article-grid-placeholder{
+    width: 100%;
+    height: 600px;
+  }
+}
 
 }
-@include lg{  
 
-  .article-grid{
+.owl-carousel span {
+    width:10px;
+    height:10px;
+    margin:5px 7px;
+    background: gray !important;
+    opacity: 40;
+    display:block;
+    -webkit-transition:opacity 200ms ease;
+    -moz-transition:opacity 200ms ease;
+    -ms-transition:opacity 200ms ease;
+    -o-transition:opacity 200ms ease;
+    transition:opacity 200ms ease;
+    -webkit-border-radius:30px;
+    -moz-border-radius:30px;
+    border-radius:30px;
+}
+
+.owl-carousel .active span {
+    width:10px;
+    height:10px;
+    margin:5px 7px;
+    background: $cGhostWhite !important;
+    display:block;
+    -webkit-transition:opacity 200ms ease;
+    -moz-transition:opacity 200ms ease;
+    -ms-transition:opacity 200ms ease;
+    -o-transition:opacity 200ms ease;
+    transition:opacity 200ms ease;
+    -webkit-border-radius:30px;
+    -moz-border-radius:30px;
+    border-radius:30px;
+}
+
+.owl-stage {
+  margin: 50px auto;
+  align-self: center;
+}
+
+
+
+div{
+@include xl{  
+.wrapper-article-grid{
+  position: relative; 
+
+    .article-grid{
+    
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include flex-direction(column);
-    margin: 10px 0.6vw;
-    list-style: none;
-    margin: 0; /* To remove default bottom margin */ 
-    padding: 0; /* To remove default left padding */
+    align-self: center;
+     
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top: 0;
+
+    height: 600px;
+    width: 95%;
+
   }
-  .landscape-grid{
+ .article-grid-placeholder{
+    width: 100%;
+    height: 600px;
+  }
+
+ }
+
+  }
+  @include lg{  
+
+    .wrapper-article-grid{
+  position: relative; 
+
+
+   .article-grid{
+    
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include flex-direction(column);
-    margin: 0 0.6vw;
+    align-self: center;
+
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top: 0;
+    position: absolute;
+
+    height: 600px;
+    width: 95%;
+
   }
+  .article-grid-placeholder{
+    width: 100%;
+    height: 600px;
+  }
+}
+
+}
+
 }
 
   .load-more-newest-articles {
@@ -235,7 +374,7 @@ a:hover{
     text-align: center;
     text-decoration: none;
     font-size: 15px;
-    margin: 15px auto;
+    margin: 55px auto;
     border: solid 0.5px $cGhostWhite;
     @include transition(all, 0.3s, linear);
     
@@ -257,9 +396,5 @@ a:hover{
   }
 
 
-  .grid-component{
-    margin:0.6vw;
-  }
-}
 
 </style>

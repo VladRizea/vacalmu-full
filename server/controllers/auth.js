@@ -1,3 +1,4 @@
+// @ts-ignore
 const crypto = require('crypto');
 const ErrorResponse = require('../utils/errorUtils');
 const asyncHandler = require('../middleware/async');

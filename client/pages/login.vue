@@ -27,7 +27,7 @@
         </div>
       <div class="login-buttons">
         <button class="button" @click="checkLogin()">Log in</button>
-        <button class="button" @click=" redirect('/register')">sau Înregistrează-te</button>
+        <a href="/register"  ><button class="button">sau Înregistrează-te</button></a>
       </div>
   </div>
 </div>
@@ -62,10 +62,6 @@ export default {
         return { photoId }
     },
     methods:{
-        redirect(route){
-            this.$router.push({path: route});
-        },
-
         checkLogin: async function  ()  {
             this.error = '';
             if(!this.password || !this.email) this.error='Completează toate câmpurile!';
@@ -90,9 +86,9 @@ export default {
             await axios.get('/api/v1/auth/me',{withCredentials: true})
             .then((response) => {
                 if(response.data.success === true){
-                this.$store.commit('set', true), 
-                this.$store.commit('setUser', response.data),
-                this.$router.push({path: '/'});
+                this.$store.commit('set', true);
+                this.$store.commit('setUser', response.data);
+                window.location.href = "/";
                 
                 }
                 else{

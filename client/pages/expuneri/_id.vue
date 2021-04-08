@@ -2,7 +2,7 @@
   <div class="container">
     <img class="thumbnail" :src="article.thumbnail" :alt="article.slug">
     <br>
-    <p class="small-text">Expunere de <a style="font-weight: bold;" class="small-text">{{article.user.name}}</a> in categoria <a style="font-weight: bold;" class=" small-text" :href="'/categorii/' + article.category">{{article.category}}</a> </p>
+    <p class="small-text">Expunere de <b>{{article.user.name}}</b> in categoria <b>{{article.category}}</b></p>
     <br>
     <h1 class="article-title">{{article.title}}</h1>
     <br>

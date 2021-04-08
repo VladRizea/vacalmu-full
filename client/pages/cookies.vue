@@ -104,7 +104,7 @@ export default {
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'twitter:image:alt',
@@ -124,12 +124,12 @@ export default {
         {
           hid: 'og:image',
           property: 'og:image',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'og:image:secure_url',
           property: 'og:image:secure_url',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'og:image:alt',

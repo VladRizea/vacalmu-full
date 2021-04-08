@@ -7,16 +7,16 @@
           <b-icon class="icon"  icon="list" font-scale="2.5" @click="isOpen = true"></b-icon>
         </div>
       </div>
-      <div class="cookie-policy-acceptance" v-if="cookiePolicy">
+      <div class="cookie-policy-acceptance animationIn" v-if="cookiePolicy">
         <p>
-          Continuă să navighezi siteul VACALMU acceptând cookie-urile noastre. Despre politica noastra Cookie poți citi <a href="/cookies">aici</a>
+          Continuă să navighezi siteul VACALMU acceptând cookie-urile noastre. Despre politica Cookie poți citi. <a href="/cookies">aici</a>
         </p>
         <div class="button" @click="setCookiesTrue()">
-          Accept
+         <b>Accept</b>
         </div>
       </div>
     <Nuxt />
-    
+
   </div>
 
 
@@ -42,47 +42,61 @@
                 <p class=" link-button-text">Despre</p>
         </a>
 
+        <a v-if="isLogged" class="link-button"  href="/dashboard" @click="isOpen=false">
+                <p class=" link-button-text">Dashboard</p>
+        </a>
         <div class="social-buttons-row">
+
+          <a href="https://www.instagram.com/vacalmu">
             <div  class=" link-social-button">
                 <b-icon class="icon"  icon="instagram"></b-icon>
             </div>
+          </a>
 
+          <a href="https://www.facebook.com/vacalmu">
             <div  class="link-social-button">
                 <b-icon class="icon"  icon="facebook"></b-icon>
             </div >
-            
-            <div  class="link-social-button">   
+          </a>
+
+          <a href="https://www.twitter.com/vacalmu">
+            <div  class="link-social-button">
                 <b-icon class="icon"  icon="twitter"></b-icon>
             </div>
+          </a>
 
-            <div dd class="link-social-button">
+          <a href="https://www.youtube.com/channel/UCcQ6h3RCM4jtIrpvpzrHu2g">
+            <div class="link-social-button">
                 <b-icon class="icon"  icon="youtube"></b-icon>
             </div>
+          </a>
         </div>
       </div>
 
       <carousel class="carousel"></carousel>
-  
+
 
   </div>
 
     <footer id="footer">
       <div>
         <div class="social-row">
-          <div  class="credits-stacked"> 
-            <a href="" class="social">Instagram</a>
-            <a href="" class="social">Facebook</a>
-            <a href="" class="social">TikTok</a>
-            <a href="" class="social">YouTube</a>
+          <div  class="credits-stacked">
+            <a href="https://www.instagram.com/vacalmu/" class="social">Instagram</a>
+            <a href="https://www.facebook.com/vacalmu" class="social">Facebook</a>
+            <a href="https://www.twitter.com/vacalmu" class="social">Twitter</a>
+            <a href="https://www.tiktok.com/@vacalmu" class="social">TikTok</a>
+            <a href="https://www.youtube.com/channel/UCcQ6h3RCM4jtIrpvpzrHu2g" class="social">YouTube</a>
           </div>
-          <div  class="credits-stacked">  
+          <div  class="credits-stacked">
             <a class="social" href="/politica-de-confidentialitate">Politica de confidențialitate</a>
             <a class="social" href="/cookies">Cookies</a>
+            <a class="social" href="/contact">Contact</a>
           </div>
         </div>
           <div class="credits">
             ©2021 Vacalmu. Drepturi destul de rezervate
-          </div> 
+          </div>
         </div>
     </footer>
 </div>
@@ -96,30 +110,37 @@ import { getCookie } from "../middleware/getCookie.js";
 
 export default {
     components:{
-      carousel
+      carousel,
     },
   data(){
     return {
       isOpen: false,
       cookiePolicy: false,
+      isLogged: false,
     }
   },
-
 
 
   mounted(){
 
   if(getCookie('c_p') == '1') this.cookiePolicy = false;
   else this.cookiePolicy = true;
-    
+
   },
   methods:{
+
     setCookiesTrue(){
+
+      var cookieBlox = document.getElementsByClassName('cookie-policy-acceptance')[0];
+      cookieBlox.classList.remove('animationIn');
+      cookieBlox.classList.add('animationOut');
+
+
       var days = new Date(
       Date.now() + 30 * 24 * 60 * 60 * 1000
     );
       document.cookie = "c_p=1;expires=" + days;
-      this.cookiePolicy = false;
+
     }
   }
 }
@@ -142,6 +163,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+
 }
 
 *,
@@ -151,6 +173,26 @@ html {
   margin: 0;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
   .nav-bar-dashboard{
     height: 50px;
     width: 100%;
@@ -158,7 +200,7 @@ html {
     z-index: 999;
     top: 0;
     left: 0;
-    background-color: $cBlackGray;
+    background-color: $cBlackGrayAccent;
     overflow-y: hidden;
 
     align-content: center;
@@ -179,24 +221,24 @@ html {
           cursor: pointer;
           opacity: 0.8;
         }
-        
+
       }
       #title{
         color: $cGhostWhite;
-        margin-left: 10px;  
+        margin-left: 10px;
         font-size: 45px;
         align-self: center;
-        
+
         &:hover{
           text-decoration: none;
         }
       }
       .login-button{
-        margin-right: 10px;  
+        margin-right: 10px;
         color: $cGhostWhite;
         font-size: 25px;
         align-self: center;
-        
+
         &:hover{
           text-decoration: none;
         }
@@ -214,7 +256,7 @@ html {
     @include flexbox();
     @include justify-content(flex-start);
     @include flex-direction(row);
-    
+
     height: 100px;
   }
 
@@ -222,14 +264,14 @@ html {
     @include flexbox();
     @include justify-content(flex-start);
     @include flex-direction(column);
-    
+
     height: 200px;
   }
 
   @include flexbox();
   @include justify-content(flex-start);
   @include flex-direction(row);
-  
+
   height: 100px;
   width: 100%;
   position: fixed;
@@ -255,20 +297,56 @@ html {
     margin: auto;
     border: solid 0.5px $cGhostWhite;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cBlackGray ;
         color: $cGhostWhite;
     }
   }
+
+
+
+
+
+}
+
+.animationIn{
+  transition: .8s;
+  animation: slideIn .8s forwards;
+  transform: translateY(0);
+}
+
+.animationOut{
+  transition: 2s;
+  animation: slideOut 2s forwards;
+  transform: translateY(0);
 }
 
 
+@keyframes slideIn {
+  0% {
+    transform: translateY(140px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(1000px);
+  }
+}
+
   #footer{
-    width: 100%;  
+    width: 100%;
     background-color: $cBlackGrayAccent;
     overflow-y: hidden;
+    margin-top: 50px;
     padding-top: 20px;
       @include flexbox();
       @include justify-content(space-between);
@@ -308,7 +386,7 @@ html {
   width: 100%;
   max-width: 1620px;
   min-height: 100vh;
-  margin:  0 auto;
+  margin: auto;
   align-content: center;
   @include xl(){
     @include flexbox();
@@ -320,17 +398,21 @@ html {
     @include flex-direction(column);
   background-color: $cBlackGray;
   .link-column{
-  
-    
-    padding: 0 0 0 10px;
+
+
+    @include xl{
+      margin: auto 10px;
+    }
+
     margin: auto 0;
 
+
     .link-button{
-      
+
         height: 75px;
-        width: 350px;
+        width: auto;
         background: $cGhostWhite;
-        margin: 10px 5px 0 5px;
+        margin: 10px 0 0 0;
         @include flexbox();
         @include justify-content(center);
         @include flex-direction(row);
@@ -348,15 +430,15 @@ html {
         }
       }
     .social-buttons-row{
-        
-        margin: 10px 0;
-        width: 355px;
+
+        margin:  0 auto;
+        width: 345px;
         @include flexbox();
         @include justify-content(space-between);
         @include flex-direction(row);
       .link-social-button{
         margin: 10px 0 0 5px;
-        
+
         align-content: center;
         justify-content: center;
           .icon{

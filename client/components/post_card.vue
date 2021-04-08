@@ -6,7 +6,7 @@
       <p class="description">{{article.description}}</p>
       <div class="buttons">
         <a :href="'/dashboard/my-articles/' +  this.article._id"><button class="button">Edit project</button></a>
-        <button v-if="article.state === 'ready'" class="button">Publish</button>
+        <div v-if="article.state === 'ready'" class="button">Published!</div>
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@ export default {
         margin: 10px;
         border: solid 0.5px $cGhostWhite;
         @include transition(all, 0.3s, linear);
-        
+
         cursor: pointer;
         &:hover{
             background-color: $cBlackGray ;

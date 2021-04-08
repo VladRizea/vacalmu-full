@@ -1,9 +1,9 @@
 <template>
   
 
-<li class="gcard" @click="flip()">
+<div class="gcard" @click="flip()">
 
-  <div class="gcard__side gcard__side--front" v-bind:class="{ 'active_side-front': isFlipped }">
+  <div class="gcard__side gcard__side--front" v-bind:class="{ 'active_side-front': isFlipped }"> 
       <img class="thumbnail-grid-gcard" loading="lazy" :src="article.thumbnailSquare" :alt="article.slug">
       <div class="gcard-grid-content">
           <b>{{article.title}}</b>
@@ -28,14 +28,17 @@
         </div>
   </div>
 
-</li>
+</div>
 
 
 
 </template>
 
 <script>
+
 export default {
+
+
 
     data() {
       return {
@@ -71,14 +74,17 @@ export default {
 
 @include xl{
 
+
   .gcard {
-    width: 30%;
+    width: 90%;
+    margin: 0 auto ;
     height: auto;
-    perspective: 100vw;
     position: relative;
-    
+    transform-style: preserve-3d;
+
     &__side {
       font-weight: bold;
+      
       @include flexbox();
       @include justify-content(space-between);
       @include flex-direction(column);
@@ -88,19 +94,24 @@ export default {
       backface-visibility: hidden;
       
       &--front {
+        transform-style: preserve-3d;
         padding: 10px;
+        
         flex: 1 1 30%;
         background: $cGhostWhite;
         .thumbnail-grid-gcard{
+
           width:100%;
           height:auto;
-          border-left: 3px solid $cBlackGray;
-          border-top: 3px solid $cBlackGray;
+          border-left: 3px solid black;
+          border-top: 3px solid black;
         }
         .gcard-grid-content{
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
           height: 110px;
           flex: 1 1 auto;
-          font-size: 26px;
+          font-size: 19px;
           color: $cBlackGray;
           &:hover{
             text-decoration: none;
@@ -109,6 +120,7 @@ export default {
       }
       
       &--back {
+        transform-style: preserve-3d;
         padding: 10px;
         height: 100%;
         width: 100%;
@@ -121,7 +133,8 @@ export default {
           @include justify-content(space-between);
           @include align-content(center);
           @include flex-direction(row);
-          
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
           .small-text-grid-card{
             align-self: center;
             color: $cBlackGray;
@@ -129,14 +142,20 @@ export default {
         }
         .description-grid-card{
           color: $cBlackGray;
-          font-size: 26px;
+          font-size: 21px;
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
         }
         .name-and-date-grid-card{
           @include flexbox();
           @include justify-content(space-between);
           @include flex-direction(row);
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
         }
         .small-text-grid-card{
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
           color: $cBlackGray;
         }
 
@@ -161,9 +180,13 @@ export default {
 @include lg{
 
   .gcard {
-    width: 80%;
+@include sm{
+  width: 95%;
+}
+    margin: 0 auto;
+    width: 90%;
     height: auto;
-    perspective: 100vw;
+    transform-style: preserve-3d;
     position: relative;
     
     &__side {
@@ -177,19 +200,24 @@ export default {
       backface-visibility: hidden;
       
       &--front {
+        
+        transform-style: preserve-3d;
         padding: 10px;
-        flex: 1 1 30%;
+        flex: 1 1 100%;
         background: $cGhostWhite;
         .thumbnail-grid-gcard{
           width:100%;
           height:auto;
-          border-left: 3px solid $cBlackGray;
-          border-top: 3px solid $cBlackGray;
+          border-left: 3px solid black;
+          border-top: 3px solid black;
         }
+
         .gcard-grid-content{
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
           height: 100px;
           flex: 1 1 auto;
-          font-size: 25px;
+          font-size: 19px;
           color: $cBlackGray;
           &:hover{
             text-decoration: none;
@@ -198,6 +226,7 @@ export default {
       }
       
       &--back {
+        transform-style: preserve-3d;
         padding: 10px;
         height: 100%;
         width: 100%;
@@ -210,7 +239,8 @@ export default {
           @include justify-content(space-between);
           @include align-content(center);
           @include flex-direction(row);
-          
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
           .small-text-grid-card{
             align-self: center;
             color: $cBlackGray;
@@ -218,15 +248,21 @@ export default {
         }
         .description-grid-card{
           color: $cBlackGray;
-          font-size: 25px;
+          font-size: 19px;
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
         }
         .name-and-date-grid-card{
           @include flexbox();
           @include justify-content(space-between);
           @include flex-direction(row);
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
         }
         .small-text-grid-card{
           color: $cBlackGray;
+          transform:  translate3d(0,0,4em);
+          z-index: 999;
         }
 
         transform: rotateY(180deg);
@@ -235,9 +271,6 @@ export default {
     
      .active_side-front {
       transform: rotateY(-180deg);
-
-
-
     }
     
     .active_side-back {

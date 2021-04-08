@@ -8,31 +8,31 @@
         </div>
 
         <div v-if="searchArticle !== ''">
-          <h2 style="margin: 20px">Results:</h2> 
+          <h2 style="margin: 20px">Results:</h2>
           <div v-for="article of searchedArticles" :key="article.id" class="released-articles">
             <postCard class="item content" :article="article"></postCard>
           </div>
         </div>
 
         <div v-if="searchArticle !== '' && !searchedArticles[0]">
-          <h2 style="margin: 20px">There are no results for search : "{{searchArticle}}"</h2> 
+          <h2 style="margin: 20px">There are no results for search : "{{searchArticle}}"</h2>
         </div>
 
         <div v-if="searchArticle === '' && articles[0]">
-          <h2 v-if="articlesPublic[0]">Released Articles</h2> 
+          <h2 v-if="articlesPublic[0]">Released Articles</h2>
           <div v-for="article of articlesPublic" :key="article._id" class="released-articles">
             <postCard  class="item content" :article="article"></postCard>
           </div>
-          <h2 v-if="articlesReady[0]">Ready Articles</h2> 
+          <h2 v-if="articlesReady[0]">Ready Articles</h2>
           <div v-for="article of articlesReady" :key="article._id" class="draft-articles">
             <postCard  class="item content"  :key="article._id"  :article="article"></postCard>
-          </div>  
-          <h2 v-if="articlesDraft[0]">Draft Articles</h2> 
+          </div>
+          <h2 v-if="articlesDraft[0]">Draft Articles</h2>
           <div  v-for="article of articlesDraft" :key="article._id"  class="articles-wrapper">
             <postCard class="item content" :article="article"></postCard>
           </div>
         </div>
-        
+
         <h1 v-if="!articles[0]" style="color: gray">Looks like you should add some articles! :)</h1><h1 id="title" contenteditable="true" data-text="Title"></h1>
   </div>
 </template>
@@ -54,7 +54,7 @@ export default {
         searchArticle: '',
         searchedArticles: [],
       }
-    }, 
+    },
     async asyncData({$axios, store}) {
       let articles = [];
       let articlesPublic = [];
@@ -83,12 +83,12 @@ export default {
       document.getElementById('search').addEventListener('keydown',async function(){
         if(app.searchArticle === '') app.searchedArticles = [];
       await axios.get(`/api/v1/articles/search?search=${app.searchArticle},user._id=${this.userId}`)
-      .then(response => { 
+      .then(response => {
           app.searchedArticles = response.data.data;
           });
       });
   }
-} 
+}
 </script>
 
 <style lang="scss">

@@ -47,7 +47,7 @@
         <label for="checkbox" class="switch"></label>
             <br>
             <div class="button-section">
-        <button id="post-button" class="button" @click="saveArticle()">save project</button>
+        <a href="/dashboard/my-articles"><button id="post-button" class="button" @click="saveArticle()">save project</button></a>
         <p v-if="thereWasAnError" class="error-text">{{thereWasAnError}}</p>
 
             </div>
@@ -164,7 +164,7 @@ export default {
      async deleteArticle(){
           if (confirm("Are you sure you want to delete this article?")){
             await axios.delete(`/api/v1/articles/${this.article._id}`)
-          .then(response => this.$router.push({path: `/dashboard/my-articles`}))
+          .then(response => window.location.href = "/dashboard/my-articles")
           .catch(erorr => this.thereWasAnError = 'There was an error and your article was not posted');
           }
       },
@@ -212,7 +212,7 @@ export default {
             'tags':this.tags,
             'state' : this.state,
           },)
-          .then(response => this.$router.push({path: `/dashboard/my-articles`}))
+          .then()
           .catch(erorr => this.thereWasAnError = 'There was an error and your article was not posted');
     },
 

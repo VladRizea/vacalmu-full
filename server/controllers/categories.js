@@ -6,8 +6,45 @@ const Categories = require('../models/Categories');
 //* @access  Private/Admin
 
 exports.getCategories = asyncHandler(async (req, res, next) => {
+
+
+  let searchQuery = req.query.articles;
+
+  if(searchQuery == "true"){
+  const categories = await Categories
+  .find()
+  .populate({
+  path: 'articles',
+  model: 'Article'
+  })
+
+
+  res.status(200).json(categories);
+  return 0;
+}
+
+
+  
+let singleArticle = req.query.name;
+
+if(singleArticle){
+  
+  const categories = await Categories
+  .find({name:singleArticle})
+  .populate({
+  path: 'articles',
+  model: 'Article'
+  })
+  
+  res.status(200).json(categories);
+  return 0;
+
+}
+
+
   res.status(200).json(res.advancedResults);
 });
+
 
 //* @desc    Post an category
 //* @route   POST /api/v1/categories

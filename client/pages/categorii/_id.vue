@@ -1,83 +1,95 @@
 <template>
   <div class="container-articles">
-    <h1><b>Expuneri din categoria {{category}}</b></h1>
-    <ul v-if="articles[0]!=null" class="article-grid">
-      <gridArticleCard  class="grid-component"  v-for="article of articles " :key="article._id"  :article="article" ></gridArticleCard>
-    </ul>
-    <div v-if="articles[0]==null" class="article-grid">
-    <h1><b>Nu există expuneri în această categorie...</b></h1>
-    <h1><b>Dar dacă vrei să existe contactează-ne;)!</b></h1>
+
+  <h1><b>{{category.name}}</b></h1>
+
+    <div class="article-grid">
+      <gridArticleCard  class="grid-component"  v-for="article of category.articles " :key="article._id"  :article="article" ></gridArticleCard>
     </div>
+
+
   </div>
 </template>
-
 
 <script>
 import axios from 'axios';
 
+import topArticleCard from '../../components/top_article_card';
 import gridArticleCard from '../../components/grid_article_card';
+
 
 export default {
     components:{
+      topArticleCard,
       gridArticleCard,
     },
 
-    async asyncData({$axios,route}) {
-      let articles = [];
-      await $axios.$get(`/api/v1/articles?category=${route.params.id}`)
-      .then(response => {articles = response.data;});
+    data () {
+      return{
+      }
+    }, 
 
-      let category = route.params.id;
-    return { articles, category }; // equivalent to { products: products }
+    async asyncData({$axios, route}) {
+      let category = [];
+      await $axios.$get(`/api/v1/categories?name=${route.params.id}`)
+      .then(response => {category = response[0];});
+      console.log(category)
+    return { category }; // equivalent to { products: products }
     },
-          head() {
+    mounted(){
+    },
+    methods:{
+        resetSearch(){
+    },
+  },
+      head() {
     return {
-      title: `Expuneri din categoria ${this.category}`,
+      title: `${this.category.name} - VACALMU`,
       meta: [
         {
           hid: 'twitter:title',
           name: 'twitter:title',
-          content: `Expuneri din categoria ${this.category}`
+          content:  `${this.category.name} - VACALMU`
         },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content: `Biblioteca de Expuneri Vacalmu din categoria ${this.category}`
+          content: `Colectia de expuneri din categoria ${this.category.name}`
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'twitter:image:alt',
           name: 'twitter:image:alt',
-          content:  `Expuneri din categoria ${this.category}`
+          content: `${this.category.name} - VACALMU`
         },
         {
           hid: 'og:title',
           property: 'og:title',
-          content:  `Expuneri din categoria ${this.category}`
+          content: `${this.category.name} - VACALMU`
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: `Biblioteca de Expuneri Vacalmu din categoria ${this.category}`
+          content: 'Colectia de expuneri din categoria ${this.category.name}'
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'og:image:secure_url',
           property: 'og:image:secure_url',
-          content: 'https://i.ibb.co/KXd2MJD/thumbnail-defaul-vacalmu.png'
+          content: 'https://i.ibb.co/QktgbyZ/default.png'
         },
         {
           hid: 'og:image:alt',
           property: 'og:image:alt',
-          content:  `Expuneri din categoria ${this.category}`
+          content: `${this.category.name} - VACALMU`
         }
       ]
     }
@@ -86,8 +98,7 @@ export default {
 </script>
 
 
-
-<style lang='scss' >
+<style lang='scss'>
   
 @import "../../assets/flex";
 @import "../../assets/colors";
@@ -95,39 +106,107 @@ export default {
 @import "../../assets/transition";
 
 body{
-  background-color: $cBlackGray;
+  background: $cBlackGray;
+}
 
-@include sm{
 .container-articles {
-
-  color: $cGhostWhite;
-  margin: 50px auto 10px auto;
+  margin: 50px auto  10px auto;
   width: 100%;
   max-width: 1620px;
   min-height: 100vh;
+  transition: height 1s;
   @include flexbox();
   @include justify-content(flex-start);
   @include align-content(center);
   @include flex-direction(column);
-  h1{
-    margin: 50px 20px;
 
-     
-  }
-  .article-grid{
+
+    h1{
+      color: $cGhostWhite;
+      margin: 50px 10px 50px 50px;
+    }
+    h2{
+      color: $cGhostWhite;
+      margin: 50px 10px 50px 10px;
+    }
+
+@include xl{  
+
+    .article-grid{
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include flex-direction(row);
+    align-self: center;
+    height: 560px;
+    width: 95%;
     flex-wrap: wrap;
-    list-style: none;
+    height: auto;
     margin: 0; /* To remove default bottom margin */ 
     padding: 0; /* To remove default left padding */
   }
+
+
+}
+@include lg{  
+
+   .article-grid{
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+    align-self: center;
+    height: auto;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
+  }
+
+}
+
+  .load-more-newest-articles {
+    width: 200px;
+    background-color: $cGhostWhite;
+    border: none;
+    color: $cBlackGray ;
+    padding: 10px 26px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    margin: 15px auto;
+    border: solid 0.5px $cGhostWhite;
+    @include transition(all, 0.3s, linear);
+    
+    cursor: pointer;
+    &:hover{
+        background-color: $cBlackGray ;
+        color: $cGhostWhite;
+        text-decoration: none;
+        b{
+          text-decoration: none;
+        }
+    }
+    &:active{
+        background-color: $cBlackGray ;
+        color: $cGhostWhite;
+        text-decoration: none;
+      
+    }
+  }
+
+
   .grid-component{
-    margin: 5px 0;
+    margin:10px;
+    @include xl{
+      flex-basis:  27.333333%;
+    }
+    @include lg{
+      flex-basis: 45.333333%;
+    }
+    @include sm{
+      flex-basis: 95%;
+    }
   }
 }
-}
-}
+
 </style>
+

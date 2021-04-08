@@ -66,9 +66,6 @@ export default {
       
     },
     methods:{
-        redirect(route){
-            this.$router.push({path: route});
-        },
 
         registerUser: async function  ()  {
 
@@ -135,7 +132,7 @@ export default {
 @import "../assets/transition";
 
 body{
-    background: $cGhostWhite;
+    background: $cBlackGray;
     align-content: center;
 .register-big-wrapper{
 @include flexbox();
@@ -177,11 +174,11 @@ height: 100vh;
                         background: $cGhostWhite;
                         height:50px;
                         width:250px;
-                        border: solid 1px black;
+                        border: solid 1px $cBlackGray;
                         @include transition(all, 0.3s, linear);
                         font-size: 20px;
                         &:focus{
-                        background: white;
+                        background: $cGhostWhite;
                     }
                     }
                     .icon-see-password-wrapper{
@@ -204,11 +201,11 @@ height: 100vh;
                     background: $cGhostWhite;
                     height:50px;
                     width:300px;
-                    border: solid 1px black;
+                    border: solid 1px $cBlackGray;
                     @include transition(all, 0.3s, linear);
                     font-size: 20px;
                     &:focus{
-                    background: white;
+                    background: $cGhostWhite;
                     }
                 }
                 .forgot-password{

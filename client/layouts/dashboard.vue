@@ -15,6 +15,20 @@
                 </div>
             </a>
 
+            <a href="/dashboard/tutorial" v-if="$nuxt.$route.name === 'dashboard-tutorial'">
+                <div class="navbar-component" >
+                    <b-icon class="icon" style="color:#9370db"  icon="bar-chart-steps" font-scale="2.5" ></b-icon>
+                    <p class="mouv" >Tutorial</p>
+                </div>
+            </a>
+            <a href="/dashboard/tutorial" v-else-if="$nuxt.$route.name  !== 'dashboard-tutorial'">
+                <div  class="navbar-component" >
+                    <b-icon class="icon"  icon="bar-chart-steps" font-scale="2.5"></b-icon>
+                    <p>Tutorial</p>
+                </div>
+            </a>
+
+
             <a href="/dashboard/article-editor" v-if="$nuxt.$route.name === 'dashboard-article-editor'">
                 <div class="navbar-component" >
                     <b-icon class="icon" style="color:#9370db"  icon="journal-plus" font-scale="2.5" ></b-icon>
@@ -42,10 +56,18 @@
                 </div>
             </a>
 
-            <div class="navbar-component log-out-button">
-                <a href="/login"><b-icon class="icon"  icon="box-arrow-left" font-scale="2.5" @click="logOutUser()"></b-icon></a>
-                <p>Log out</p>
-            </div>
+            <a href="/dashboard/admin"  v-if="$store.state.user.role === 'admin'">
+                <div class="navbar-component" >
+                    <b-icon class="icon" icon="geo-fill" font-scale="2.5"></b-icon>
+                    <p>Admin</p>
+                </div>
+            </a>
+
+                <div class="navbar-component log-out-button">
+                    <b-icon class="icon"  icon="box-arrow-left" font-scale="2.5" @click="logOutUser()"></b-icon>
+                    <p  @click="logOutUser()">Log out</p>
+                </div>
+
 
         </div>
         <Nuxt/>
@@ -62,23 +84,18 @@ export default {
   data(){
     return {
 
-    }  
+    }
   },
   mounted(){
     document.getElementById('navbar-left').addEventListener('mousedown', function (e) {
         e.preventDefault();
     });
-
   },
   methods:{
     async logOutUser(){
            await this.$axios.$get('/api/v1/auth/logout',
           {withCredentials: true})
-          .then();
-    },
-    
-    redirect(route){
-        this.$router.push({path: route});
+          .then(window.location.href = "/login");
     },
   }
 }
@@ -116,7 +133,8 @@ export default {
             .icon{
                 cursor: pointer;
                 color: $cGhostWhite;
-                margin: auto;
+                margin: 0 auto;
+
             }
             .mouv{
                 color:#9370db;
@@ -128,21 +146,7 @@ export default {
                 text-align: center;
             }
         }
-        .log-out-button{
-                
-                cursor: pointer;
-                .icon{
-                    &:hover{
-                        color: $cErrorRed;
-                         p{
-                    color: $cErrorRed;
-                    margin: 0 auto;
-                }
-                    }
-                }
-               
-            
-        }
+
 
     }
 }

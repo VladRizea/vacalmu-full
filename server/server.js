@@ -32,8 +32,12 @@ app.use(express.json());
 //* Cookie parser
 app.use(cookieParser());
 
+
+
 app.use(cors({
-  origin: 'http://localhost:80'
+  // origin: 'http://localhost:3000',
+  origin: 'vacalm-client:80',
+  credentials: true
 }));
 
 // Dev logging middleware

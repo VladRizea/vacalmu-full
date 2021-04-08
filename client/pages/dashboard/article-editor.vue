@@ -189,7 +189,7 @@ export default {
             'tags':this.tags,
             'state' : this.state,
           },)
-          .then(response => this.$router.push({path: `/dashboard/my-articles`}))
+          .then(response => window.location.href = "/dashboard/my-articles")
           .catch(error => this.thereWasAnError = 'There was an error and your article was not posted');
     },
 

@@ -9,11 +9,11 @@ const Categories = require('../models/Categories');
 exports.getFeed = asyncHandler(async (req, res, next) => {
   
     let feed = [];
-    const newArticles = await Article.find().limit(7).sort('-createdAt');
+    const newArticles = await Article.find({ state: 'ready'}).limit(7).sort('-createdAt');
     feed.push(newArticles);
 
     const categories = await Categories
-        .find({ articlesNumber: { $gte: 3 } })
+        .find({ articlesNumber: { $gte: 3 } , state: 'ready'})
         .populate({
         path: 'articles',
         model: 'Article'
