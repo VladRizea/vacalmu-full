@@ -40,11 +40,11 @@ export default {
         searchArticle: '',
         searchedArticles: [],
       }
-    }, 
+    },
 
     async asyncData({$axios}) {
       let articles = [];
-      await $axios.$get(`/api/v1/articles`)
+      await $axios.$get(`/api/v1/articles?state=ready`)
       .then(response => {articles = response.data;});
     return { articles }; // equivalent to { products: products }
     },
@@ -55,7 +55,7 @@ export default {
         document.getElementById('search').addEventListener('keydown',async function(){
         if(app.searchArticle === '') app.searchedArticles = [];
         await axios.get(`/api/v1/articles/search?search=${app.searchArticle}`)
-        .then(response => { 
+        .then(response => {
             app.searchedArticles = response.data.data;
             });
         });
@@ -123,7 +123,7 @@ export default {
 
 
 <style lang='scss'>
-  
+
 @import "../../assets/flex";
 @import "../../assets/colors";
 @import "../../assets/screen-size";
@@ -154,7 +154,7 @@ body{
     height: 60px;
     margin:  50px auto ;
     .icon{
-  
+
         color: gray;
         margin: auto 10px;
         font-size: 35px;
@@ -193,7 +193,7 @@ body{
       margin: 50px 10px 50px 10px;
     }
 
-@include xl{  
+@include xl{
 
     .article-grid{
 
@@ -205,13 +205,13 @@ body{
     width: 95%;
     flex-wrap: wrap;
     height: auto;
-    margin: 0; /* To remove default bottom margin */ 
+    margin: 0; /* To remove default bottom margin */
     padding: 0; /* To remove default left padding */
   }
 
 
 }
-@include lg{  
+@include lg{
 
    .article-grid{
 
@@ -222,7 +222,7 @@ body{
     height: auto;
     flex-wrap: wrap;
     width: 95%;
-    margin: 0; /* To remove default bottom margin */ 
+    margin: 0; /* To remove default bottom margin */
     padding: 0; /* To remove default left padding */
   }
 
@@ -240,7 +240,7 @@ body{
     margin: 15px auto;
     border: solid 0.5px $cGhostWhite;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cBlackGray ;
@@ -254,7 +254,7 @@ body{
         background-color: $cBlackGray ;
         color: $cGhostWhite;
         text-decoration: none;
-      
+
     }
   }
 
