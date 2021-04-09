@@ -64,12 +64,12 @@ export default {
 
 
   axios: {
-    baseURL: 'http://localhost/',
-    browserBaseURL : 'http://localhost/',
+    baseURL: 'localhost/',
+    browserBaseURL : 'localhost/',
   },
 
   proxy: {
-    '/api/v1': { target: 'http://localhost/api/v1/', pathRewrite: {'^/api/v1': ''} }
+    '/api/v1': { target: 'localhost/api/v1/', pathRewrite: {'^/api/v1': ''} }
   },
 
   // axios: {
