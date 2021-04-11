@@ -10,16 +10,16 @@
         <time class=" small-text-top-article" :datetime="article.createdAt"><b>{{new Intl.DateTimeFormat('ro-RO').format(article.createdAt.month)}}</b></time>
       </div>
     </div>
-    
- 
+
+
       <a :href="'/expuneri/' + article.slug">
-      
+
       <picture class="thumbnail-top-article-component">
           <source :srcset="article.thumbnail" media="(min-width: 1019px)">
           <source :srcset="article.thumbnail" media="(min-width: 821px)">
           <img class="thumbnail-top-article" :src=" article.thumbnail" :alt="article.slug">
       </picture>
-      
+
       </a>
 
   </div>
@@ -53,8 +53,8 @@ export default {
 @include xl{
 
   @include flexbox();
-  @include justify-content(space-between);  
-  @include align-content(center);  
+  @include justify-content(space-between);
+  @include align-content(center);
   @include flex-direction(row);
   background: $cGhostWhite;
   align-self: center;
@@ -62,9 +62,19 @@ export default {
   width: 100%;
   height: auto;
   .thumbnail-top-article-component{
+  user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     position: relative;
     justify-self: flex-end;
     .thumbnail-top-article{
+    user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
       height: auto;
       width: 55vw;
       max-width: 1100px;
@@ -79,12 +89,12 @@ export default {
     @include flex-direction(column);
     flex: 1 1 auto;
     .title-top-article{
-      
+
       color: $cBlackGray;
       font-size: 32px;
       &:hover{
           text-decoration: none;
-        }      
+        }
     }
     .description-top-article{
       color: $cBlackGray;
@@ -112,9 +122,9 @@ export default {
     }
     .name-and-date-top-article{
         @include flexbox();
-        @include justify-content(space-between);  
+        @include justify-content(space-between);
         @include flex-direction(row);
-       
+
     }
   }
 }
@@ -122,8 +132,8 @@ export default {
 @include lg{
 
   @include flexbox();
-  @include justify-content(space-between);  
-  @include align-content(center);  
+  @include justify-content(space-between);
+  @include align-content(center);
   @include flex-direction(row);
   background: $cGhostWhite;
   align-self: center;
@@ -132,12 +142,21 @@ export default {
   height: auto;
   margin: 10px;
   .thumbnail-top-article-component{
+  user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     position: relative;
     justify-self: flex-end;
     .thumbnail-top-article{
       height: auto;
       width: 55vw;
-       
+    user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
     }
   }
 
@@ -149,12 +168,12 @@ export default {
     @include flex-direction(column);
     flex: 1 1 auto;
     .title-top-article{
-      
+
       color: $cBlackGray;
       font-size: 28px;
       &:hover{
           text-decoration: none;
-        }      
+        }
     }
     .description-top-article{
       color: $cBlackGray;
@@ -182,9 +201,9 @@ export default {
     }
     .name-and-date-top-article{
         @include flexbox();
-        @include justify-content(space-between);  
+        @include justify-content(space-between);
         @include flex-direction(row);
-       
+
     }
   }
 
@@ -192,10 +211,10 @@ export default {
 }
 
 @include md {
- 
+
   @include flexbox();
-  @include justify-content(space-between);  
-  @include align-content(center);  
+  @include justify-content(space-between);
+  @include align-content(center);
   @include flex-direction(row);
   background: $cGhostWhite;
   align-self: center;
@@ -205,10 +224,20 @@ export default {
   margin: 10px;
 
   .thumbnail-top-article-component{
+  user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     height: auto;
     position: relative;
     justify-self: flex-end;
     .thumbnail-top-article{
+  user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
       padding: 0;
       height: auto;
       width: 350px;
@@ -237,12 +266,12 @@ export default {
     @include flex-direction(column);
     flex: 1 1 auto;
     .title-top-article{
-      
+
       color: $cBlackGray;
       font-size: 16px;
       &:hover{
           text-decoration: none;
-        }      
+        }
     }
     .description-top-article{
       display: none;
@@ -266,16 +295,16 @@ export default {
         font-size: 13px;
         font-weight: 1000;
         opacity: 1;
-        
+
     }
     .component-top-article{
         margin-left: 10px;
     }
     .name-and-date-top-article{
         @include flexbox();
-        @include justify-content(space-between);  
+        @include justify-content(space-between);
         @include flex-direction(row);
-       
+
     }
   }
 

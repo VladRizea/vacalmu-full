@@ -38,12 +38,8 @@
                 <p class=" link-button-text">Categorii</p>
         </a>
 
-        <a class="link-button"  href="/despre" @click="isOpen=false">
-                <p class=" link-button-text">Despre</p>
-        </a>
-
-        <a v-if="isLogged" class="link-button"  href="/dashboard" @click="isOpen=false">
-                <p class=" link-button-text">Dashboard</p>
+        <a class="link-button"  href="/contact" @click="isOpen=false">
+                <p class=" link-button-text">Contact</p>
         </a>
         <div class="social-buttons-row">
 
@@ -346,8 +342,7 @@ html {
     width: 100%;
     background-color: $cBlackGrayAccent;
     overflow-y: hidden;
-    margin-top: 50px;
-    padding-top: 20px;
+    padding-top:50px;
       @include flexbox();
       @include justify-content(space-between);
       @include flex-direction(row);

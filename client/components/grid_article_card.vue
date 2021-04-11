@@ -1,9 +1,9 @@
 <template>
-  
+
 
 <div class="gcard" @click="flip()">
 
-  <div class="gcard__side gcard__side--front" v-bind:class="{ 'active_side-front': isFlipped }"> 
+  <div class="gcard__side gcard__side--front" v-bind:class="{ 'active_side-front': isFlipped }">
       <img class="thumbnail-grid-gcard" loading="lazy" :src="article.thumbnailSquare" :alt="article.slug">
       <div class="gcard-grid-content">
           <b>{{article.title}}</b>
@@ -11,19 +11,19 @@
   </div>
 
   <div class="gcard__side gcard__side--back"  v-bind:class="{ 'active_side-back': isFlipped }">
-        
+
         <div class="back-and-category-grid-card">
           <b-icon class="icon"  icon="arrow-left-circle-fill" font-scale="2.5"></b-icon>
-          
+
           <p class="small-text-grid-card">Categorie: <a class="small-text-grid-card" :href="'/categorii/' + article.category">{{article.category}}</a></p>
         </div>
-        
-        
+
+
         <a :href="'/expuneri/' + article.slug" class="description-grid-card ">{{truncate(article.description, 100)}}</a>
 
         <div class="name-and-date-grid-card">
           <a class=" small-text-grid-card" :href="'/publishers/' + article.user.name">{{article.user.name}}</a>
-          
+
           <time class=" small-text-grid-card" :datetime="article.createdAt">{{new Intl.DateTimeFormat('ro-RO').format(new Date(article.createdAt))}}</time>
         </div>
   </div>
@@ -84,7 +84,7 @@ export default {
 
     &__side {
       font-weight: bold;
-      
+
       @include flexbox();
       @include justify-content(space-between);
       @include flex-direction(column);
@@ -92,15 +92,19 @@ export default {
 
       transition: all 700ms ease;
       backface-visibility: hidden;
-      
+
       &--front {
         transform-style: preserve-3d;
         padding: 10px;
-        
+
         flex: 1 1 30%;
         background: $cGhostWhite;
         .thumbnail-grid-gcard{
-
+          user-select: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
           width:100%;
           height:auto;
           border-left: 3px solid black;
@@ -118,7 +122,7 @@ export default {
           }
         }
       }
-      
+
       &--back {
         transform-style: preserve-3d;
         padding: 10px;
@@ -162,16 +166,16 @@ export default {
         transform: rotateY(180deg);
       }
     }
-    
+
     &:hover &__side--front {
       transform: rotateY(-180deg);
     }
-    
+
     &:hover &__side--back {
       transform: rotateY(0);
     }
 
-
+margin: 10px 0;
   }
 
 }
@@ -180,6 +184,7 @@ export default {
 @include lg{
 
   .gcard {
+    margin: 10px 0;
 @include sm{
   width: 95%;
 }
@@ -188,7 +193,7 @@ export default {
     height: auto;
     transform-style: preserve-3d;
     position: relative;
-    
+
     &__side {
       font-weight: bold;
       @include flexbox();
@@ -198,14 +203,19 @@ export default {
 
       transition: all 700ms ease;
       backface-visibility: hidden;
-      
+
       &--front {
-        
+
         transform-style: preserve-3d;
         padding: 10px;
         flex: 1 1 100%;
         background: $cGhostWhite;
         .thumbnail-grid-gcard{
+          user-select: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
           width:100%;
           height:auto;
           border-left: 3px solid black;
@@ -224,7 +234,7 @@ export default {
           }
         }
       }
-      
+
       &--back {
         transform-style: preserve-3d;
         padding: 10px;
@@ -268,14 +278,15 @@ export default {
         transform: rotateY(180deg);
       }
     }
-    
+
      .active_side-front {
       transform: rotateY(-180deg);
     }
-    
+
     .active_side-back {
       transform: rotateY(0);
     }
+    margin: 10px 0;
   }
 
 }

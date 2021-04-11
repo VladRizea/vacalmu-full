@@ -35,6 +35,11 @@ export default {
   min-width: 950px;
   width: 80vw;
   .thumbnail{
+          user-select: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
     height: 300px;
     width: auto;
   }

@@ -91,6 +91,11 @@ const clearActiveBtn = ()=>{
   grid-gap: 0.5em;
 
   & > img {
+    user-select: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
     border-radius: 0.5em;
     display: block;
     width: calc(39em / 3);
