@@ -97,7 +97,7 @@ script: [
         async: true,
       },
     ],
-    
+
     }
   }
 }
@@ -105,7 +105,7 @@ script: [
 
 
 <style lang='scss'>
-  
+
 @import "../../assets/flex";
 @import "../../assets/colors";
 @import "../../assets/screen-size";
@@ -165,14 +165,21 @@ body{
     width: 60%;
     color: $cGhostWhite;
     p{
-      font-size: 18px;
+      font-size: 22px;
     }
-    
+    h2{
+      font-size: 45px;
+    }
     img{
       width:100%;
     }
-  }  
-}  
+    iframe {
+      width: 100% !important;
+      height: 512px !important;
+    }
+
+  }
+}
 }
 
 @include lg{
@@ -223,20 +230,26 @@ body{
     width: 95%;
     margin: 0 auto;
   }
-  
+
   .content{
     margin: 0 auto;
     width: 95%;
     color: $cGhostWhite;
     p{
-      font-size: 18px;
+      font-size: 22px;
     }
-    
+    h2{
+      font-size: 45px;
+    }
     img{
       width:100%;
     }
-  }  
-}  
+    iframe {
+      width: 100% !important;
+      height: 512px !important;
+    }
+  }
+}
 }
 }
 
