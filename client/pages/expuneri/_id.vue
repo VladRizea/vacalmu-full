@@ -173,10 +173,9 @@ body{
     img{
       width:100%;
     }
-    iframe {
-      width: 100% !important;
-      height: 512px !important;
-    }
+.video_wrapper { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
+
+.video_wrapper iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
   }
 }
@@ -244,10 +243,10 @@ body{
     img{
       width:100%;
     }
-    iframe {
-      width: 100% !important;
-      height: 512px !important;
-    }
+.video_wrapper { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
+
+.video_wrapper iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
   }
 }
 }
