@@ -65,6 +65,16 @@ if (process.server) {
           content: this.article.title
         },
         {
+          hid: 'twitter:card',
+          property: 'twitter:card',
+          content: `summary_large_image`
+        },
+        {
+          hid: 'twitter:site',
+          property: 'twitter:site',
+          content: 'vacalmu.live'
+        },
+        {
           hid: 'og:title',
           property: 'og:title',
           content: this.article.title
