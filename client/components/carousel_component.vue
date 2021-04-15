@@ -3,15 +3,21 @@
   <div class="wrapper">
     <div class="inner">
       <div class="slide">
-        <img src="https://i.ibb.co/Pw27BJM/slide-1.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/dccFt4h/slide-2.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/4PQ95yY/slide-3.png" alt="imagine meniu deschis">
+
+
+
+
+
+
+        <img src="https://i.ibb.co/KFHtnW9/slide-1-min.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/k597brz/slide-2-min.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/n6S3Xqn/slide-3-min.png" alt="imagine meniu deschis">
       </div>
 
       <div class="slide">
-        <img src="https://i.ibb.co/m5mZRjf/slide-4.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/Sd8zjcB/slide-5.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/F6XbvYR/slide-6.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/JcsP02W/slide-4-min.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/NYTMcKq/slide-5-min.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/Y8hZMJz/slide-6-min.png" alt="imagine meniu deschis">
       </div>
     </div>
   </div>

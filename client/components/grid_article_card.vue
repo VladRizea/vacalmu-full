@@ -77,7 +77,7 @@ export default {
 
   .gcard {
     width: 90%;
-    margin: 0 auto ;
+    margin: 10px ;
     height: auto;
     position: relative;
     transform-style: preserve-3d;
@@ -175,7 +175,7 @@ export default {
       transform: rotateY(0);
     }
 
-margin: 10px 0;
+
   }
 
 }
@@ -184,11 +184,11 @@ margin: 10px 0;
 @include lg{
 
   .gcard {
-    margin: 10px 0;
+    margin: 10px;
 @include sm{
   width: 95%;
 }
-    margin: 0 auto;
+
     width: 90%;
     height: auto;
     transform-style: preserve-3d;
@@ -286,7 +286,6 @@ margin: 10px 0;
     .active_side-back {
       transform: rotateY(0);
     }
-    margin: 10px 0;
   }
 
 }

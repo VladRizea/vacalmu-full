@@ -16,7 +16,7 @@ exports.getFeed = asyncHandler(async (req, res, next) => {
 
 
     const categories = await Categories
-        .find({ articlesNumber: { $gte: 2 }})
+        .find({ articlesNumber: { $gte: 3 }})
         .populate({
         path: 'articles',
         model: 'Article'

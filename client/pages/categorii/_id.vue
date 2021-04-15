@@ -27,13 +27,12 @@ export default {
     data () {
       return{
       }
-    }, 
+    },
 
     async asyncData({$axios, route}) {
       let category = [];
       await $axios.$get(`/api/v1/categories?name=${route.params.id}`)
       .then(response => {category = response[0];});
-      console.log(category)
     return { category }; // equivalent to { products: products }
     },
     mounted(){
@@ -99,7 +98,7 @@ export default {
 
 
 <style lang='scss'>
-  
+
 @import "../../assets/flex";
 @import "../../assets/colors";
 @import "../../assets/screen-size";
@@ -130,7 +129,7 @@ body{
       margin: 50px 10px 50px 10px;
     }
 
-@include xl{  
+@include xl{
 
     .article-grid{
     @include flexbox();
@@ -141,13 +140,13 @@ body{
     width: 95%;
     flex-wrap: wrap;
     height: auto;
-    margin: 0; /* To remove default bottom margin */ 
+    margin: 0; /* To remove default bottom margin */
     padding: 0; /* To remove default left padding */
   }
 
 
 }
-@include lg{  
+@include lg{
 
    .article-grid{
     @include flexbox();
@@ -157,7 +156,7 @@ body{
     height: auto;
     flex-wrap: wrap;
     width: 95%;
-    margin: 0; /* To remove default bottom margin */ 
+    margin: 0; /* To remove default bottom margin */
     padding: 0; /* To remove default left padding */
   }
 
@@ -175,7 +174,7 @@ body{
     margin: 15px auto;
     border: solid 0.5px $cGhostWhite;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cBlackGray ;
@@ -189,7 +188,7 @@ body{
         background-color: $cBlackGray ;
         color: $cGhostWhite;
         text-decoration: none;
-      
+
     }
   }
 
