@@ -12,12 +12,17 @@ exports.getFeed = asyncHandler(async (req, res, next) => {
     const newArticles = await Article.find({ state: 'ready'}).limit(7).sort('-createdAt');
     feed.push(newArticles);
 
+    console.log(newArticles);
+
+
     const categories = await Categories
-        .find({ articlesNumber: { $gte: 3 } , state: 'ready'})
+        .find({ articlesNumber: { $gte: 2 }})
         .populate({
         path: 'articles',
         model: 'Article'
     })
+
+    console.log(categories);
 
     feed.push(categories);
 
