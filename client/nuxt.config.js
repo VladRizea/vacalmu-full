@@ -64,12 +64,12 @@ export default {
 
 
   axios: {
-    baseURL: 'https://vacalmu.live/',
-    browserBaseURL : 'https://vacalmu.live/',
+    baseURL: 'http://localhost:5000/',
+    browserBaseURL : 'http://localhost:5000/',
   },
 
   proxy: {
-    '/api/v1': { target: 'https://vacalmu.live/api/v1/', pathRewrite: {'^/api/v1': ''} }
+    '/api/v1': { target: 'http://localhost:5000/api/v1/', pathRewrite: {'^/api/v1': ''} }
   },
 
   // axios: {

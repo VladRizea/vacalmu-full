@@ -12,7 +12,7 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
 
   if(searchQuery == "true"){
   const categories = await Categories
-  .find({state:'ready'})
+  .find()
   .populate({
   path: 'articles',
   model: 'Article'
@@ -30,7 +30,7 @@ let singleArticle = req.query.name;
 if(singleArticle){
   
   const categories = await Categories
-  .find({name:singleArticle, state:'ready'})
+  .find({name:singleArticle})
   .populate({
   path: 'articles',
   model: 'Article'
