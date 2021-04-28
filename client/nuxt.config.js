@@ -22,7 +22,7 @@ export default {
     ],
     script: [
       { hid: 'stripe', src: 'https://www.googletagmanager.com/gtag/js?id=G-YP3GYY957K' },
-
+      { src:'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3630292987556158', crossorigin:'anonymous'},
     ]
   },
 
