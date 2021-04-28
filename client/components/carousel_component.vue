@@ -3,12 +3,6 @@
   <div class="wrapper">
     <div class="inner">
       <div class="slide">
-
-
-
-
-
-
         <img src="https://i.ibb.co/KFHtnW9/slide-1-min.png" alt="imagine meniu deschis">
         <img src="https://i.ibb.co/k597brz/slide-2-min.png" alt="imagine meniu deschis">
         <img src="https://i.ibb.co/n6S3Xqn/slide-3-min.png" alt="imagine meniu deschis">
