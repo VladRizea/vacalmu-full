@@ -2,12 +2,26 @@
 <div>
 
   <div v-if="articles[0][0]" class="index-container">
-   
-   
+
+
       <div class="article-top">
         <topArticleCard   :article="articles[0][0]" ></topArticleCard>
       </div>
-  
+
+    <div class="advetisment">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3630292987556158"
+          crossorigin="anonymous"></script>
+      <!-- banner home -->
+      <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-3630292987556158"
+          data-ad-slot="4536959230"
+          data-ad-format="auto"
+          data-full-width-responsive="true"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
 
     <h1>Ultimele articole VACALMU</h1>
 
@@ -26,8 +40,8 @@
 <br>
 
     <div v-for="category of articles[1].length" :key="category">
-      <h2>Articole din categoria {{articles[1][category - 1].name}}</h2> 
-       
+      <h2>Articole din categoria {{articles[1][category - 1].name}}</h2>
+
 
       <div class="wrapper-article-grid">
 
@@ -65,7 +79,7 @@ export default {
     components:{
       topArticleCard,
       gridArticleCard,
-       
+
     },
     data() {
       return {
@@ -155,7 +169,7 @@ export default {
 
 
 <style lang='scss'>
-  
+
 @import "../assets/flex";
 @import "../assets/colors";
 @import "../assets/screen-size";
@@ -179,12 +193,16 @@ a:hover{
   @include justify-content(flex-start);
   @include align-content(center);
   @include flex-direction(column);
+  .advetisment{
+    max-width: 1620px;
+    max-height: 400px;
+  }
   .article-top{
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
-    @include xl{  
-     margin:15px; 
+    @include xl{
+     margin:15px;
     }
     margin:10px 5px 5px 5px;
   }
@@ -197,22 +215,22 @@ a:hover{
     color: $cGhostWhite;
     margin: 50px 10px 50px 10px;
   }
-  @include xl{  
+  @include xl{
 .wrapper-article-grid{
-  position: relative; 
+  position: relative;
 
     .article-grid{
-    
+
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
     align-self: center;
-     
-    position: absolute; 
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     top: 0;
 
     height: 600px;
@@ -228,23 +246,23 @@ a:hover{
  }
 
   }
-  @include lg{  
+  @include lg{
 
     .wrapper-article-grid{
-  position: relative; 
+  position: relative;
 
 
    .article-grid{
-    
+
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
     align-self: center;
 
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     top: 0;
     position: absolute;
 
@@ -301,22 +319,22 @@ a:hover{
 
 
 div{
-@include xl{  
+@include xl{
 .wrapper-article-grid{
-  position: relative; 
+  position: relative;
 
     .article-grid{
-    
+
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
     align-self: center;
-     
-    position: absolute; 
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     top: 0;
 
     height: 600px;
@@ -331,23 +349,23 @@ div{
  }
 
   }
-  @include lg{  
+  @include lg{
 
     .wrapper-article-grid{
-  position: relative; 
+  position: relative;
 
 
    .article-grid{
-    
+
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
     align-self: center;
 
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     top: 0;
     position: absolute;
 
@@ -377,7 +395,7 @@ div{
     margin: 55px auto;
     border: solid 0.5px $cGhostWhite;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cBlackGray ;
@@ -391,7 +409,7 @@ div{
         background-color: $cBlackGray ;
         color: $cGhostWhite;
         text-decoration: none;
-      
+
     }
   }
 
