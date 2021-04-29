@@ -7,22 +7,7 @@
       <div class="article-top">
         <topArticleCard   :article="articles[0][0]" ></topArticleCard>
       </div>
-
-
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3630292987556158"
-          crossorigin="anonymous"></script>
-      <!-- banner home -->
-      <ins class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-3630292987556158"
-          data-ad-slot="4536959230"
-          data-ad-format="auto"
-          data-full-width-responsive="true"></ins>
-      <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-
-
+     <adsbygoogle />
     <h1>Ultimele articole VACALMU</h1>
 
       <div class="wrapper-article-grid">
