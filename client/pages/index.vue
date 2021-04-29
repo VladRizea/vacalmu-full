@@ -183,9 +183,7 @@ a:hover{
   @include justify-content(flex-start);
   @include align-content(center);
   @include flex-direction(column);
-  .adsbygoogle{
-    margin: 0 auto;
-  }
+
   .article-top{
     @include flexbox();
     @include align-items(center);
