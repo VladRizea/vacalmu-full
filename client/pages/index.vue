@@ -8,7 +8,7 @@
         <topArticleCard   :article="articles[0][0]" ></topArticleCard>
       </div>
 
-    <div class="advetisment">
+
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3630292987556158"
           crossorigin="anonymous"></script>
       <!-- banner home -->
@@ -21,7 +21,7 @@
       <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-    </div>
+
 
     <h1>Ultimele articole VACALMU</h1>
 
