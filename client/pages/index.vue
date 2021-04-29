@@ -8,7 +8,7 @@
         <topArticleCard   :article="articles[0][0]" ></topArticleCard>
       </div>
 
-     <adsbygoogle ad-slot="4536959230" :ad-style="styleObject"  />
+     <adsbygoogle ad-slot="4536959230"/>
 
     <h1>Ultimele articole VACALMU</h1>
 
@@ -24,6 +24,8 @@
 
       </div>
 
+<br>
+<adsbygoogle ad-slot="4536959230"/>
 <br>
 
     <div v-for="category of articles[1].length" :key="category">
@@ -43,7 +45,8 @@
       </div>
       <a  :href="'/categorii/' + articles[1][category-1].name"><div class="load-more-newest-articles" ><b>Mai mult</b></div></a>
     </div>
-
+    <br><br>
+<adsbygoogle ad-slot="4536959230"/>
   </div>
 
   <div  v-if="!articles[0][0]">
@@ -72,10 +75,6 @@ export default {
       return {
         newArticles: 3,
         showMoreArticlesButtons: true,
-        styleObject: {
-            margin: '0 auto',
-            display: 'block'
-          }
       }
     },
     async asyncData({$axios}) {
