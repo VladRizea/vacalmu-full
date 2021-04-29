@@ -7,7 +7,7 @@
       <div class="article-top">
         <topArticleCard   :article="articles[0][0]" ></topArticleCard>
       </div>
-     <adsbygoogle ad-slot="4536959230"/>
+     <adsbygoogle ad-slot="4536959230" ad-style="{margin: 0 auto, display:block}" />
     <h1>Ultimele articole VACALMU</h1>
 
       <div class="wrapper-article-grid">
