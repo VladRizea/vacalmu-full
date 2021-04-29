@@ -180,7 +180,7 @@ a:hover{
   min-height: 100vh;
   transition: height 1s;
   @include flexbox();
-  @include justify-content(flex-start);
+  @include justify-content(center);
   @include align-content(center);
   @include flex-direction(column);
 
@@ -309,9 +309,7 @@ div{
 @include xl{
 .wrapper-article-grid{
   position: relative;
-
     .article-grid{
-
     @include flexbox();
     @include align-items(center);
     @include justify-content(center);
