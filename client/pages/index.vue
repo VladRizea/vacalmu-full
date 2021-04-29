@@ -183,9 +183,8 @@ a:hover{
   @include justify-content(flex-start);
   @include align-content(center);
   @include flex-direction(column);
-  .advetisment{
-    max-width: 1620px;
-    max-height: 400px;
+  .adsbygoogle{
+    margin: 0 auto;
   }
   .article-top{
     @include flexbox();
