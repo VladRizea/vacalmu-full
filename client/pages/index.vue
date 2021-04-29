@@ -7,7 +7,7 @@
       <div class="article-top">
         <topArticleCard   :article="articles[0][0]" ></topArticleCard>
       </div>
-     <adsbygoogle ad-slot="4536959230" ad-style="{margin: 0 auto, display:block}" />
+     <adsbygoogle ad-slot="4536959230" :ad-style="styleObject" />
     <h1>Ultimele articole VACALMU</h1>
 
       <div class="wrapper-article-grid">
@@ -70,6 +70,10 @@ export default {
       return {
         newArticles: 3,
         showMoreArticlesButtons: true,
+        styleObject: {
+            margin: '0 auto',
+            display: 'block'
+          }
       }
     },
     async asyncData({$axios}) {
