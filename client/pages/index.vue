@@ -25,6 +25,20 @@
       </div>
 
 <br>
+<div class="reclama">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3630292987556158"
+      crossorigin="anonymous"></script>
+  <!-- banner home -->
+  <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-3630292987556158"
+      data-ad-slot="4536959230"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
 <adsbygoogle ad-slot="4536959230"/>
 <br>
 
@@ -183,7 +197,12 @@ a:hover{
   @include justify-content(center);
   @include align-content(center);
   @include flex-direction(column);
-
+  .reclama{
+    max-width: 1620px;
+    width: 100%;
+    min-height: 280px;
+    height: auto;
+  }
   .article-top{
     @include flexbox();
     @include align-items(center);
