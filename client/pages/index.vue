@@ -39,7 +39,6 @@
       (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
-<adsbygoogle ad-slot="4536959230"/>
 <br>
 
     <div v-for="category of articles[1].length" :key="category">
@@ -199,9 +198,10 @@ a:hover{
   @include flex-direction(column);
   .reclama{
     max-width: 1620px;
-    width: 100%;
     min-height: 280px;
     height: auto;
+    width: auto;
+    margin: 0 auto;
   }
   .article-top{
     @include flexbox();
