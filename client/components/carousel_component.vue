@@ -3,18 +3,22 @@
   <div class="wrapper">
     <div class="inner">
       <div class="slide">
-        <img src="https://i.ibb.co/KFHtnW9/slide-1-min.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/k597brz/slide-2-min.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/n6S3Xqn/slide-3-min.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/fDX3vhD/slide-1-min.jpg" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/Cnc4q3j/slide-2-min.jpg" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/K7bq85R/slide-3-min.jpg" alt="imagine meniu deschis">
       </div>
 
       <div class="slide">
-        <img src="https://i.ibb.co/JcsP02W/slide-4-min.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/NYTMcKq/slide-5-min.png" alt="imagine meniu deschis">
-        <img src="https://i.ibb.co/Y8hZMJz/slide-6-min.png" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/GFN9dW5/slide-4-min.jpg" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/F0d1mZM/slide-5-min.jpg" alt="imagine meniu deschis">
+        <img src="https://i.ibb.co/rcj84Zb/slide-6-min.jpg" alt="imagine meniu deschis">
       </div>
     </div>
   </div>
+
+
+
+
 
 
 
