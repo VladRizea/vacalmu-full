@@ -17,7 +17,7 @@ exports.getArticles = asyncHandler(async (req, res, next) => {
 //* @access  Private
 exports.postArticle = asyncHandler(async (req, res, next) =>
 {
-  req.body.user = req.user._id;
+  req.body.publisher = req.user._id;
   const article = await Article.create(req.body);
 
   const category = await Categories.find({name: article.category})
