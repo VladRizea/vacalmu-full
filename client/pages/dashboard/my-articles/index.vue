@@ -98,7 +98,6 @@ export default {
 @import "../../../assets/transition";
 @import "../../../assets/colors";
 body{
-  background: $cGhostWhite;
 .big-wrapper-my-articles{
   margin-left: 160px; /* Same as the width of the sidenav */
   padding: 0px 10px;

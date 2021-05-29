@@ -4,26 +4,26 @@
 
             <a href="/dashboard" v-if="$nuxt.$route.name === 'dashboard'">
                 <div class="navbar-component" >
-                    <b-icon class="icon" style="color:#9370db"  icon="house" font-scale="2.5" ></b-icon>
+                    <b-icon class="icon" style="color:#9370db"  icon="house" font-scale="2" ></b-icon>
                     <p class="mouv" >Home</p>
                 </div>
             </a>
             <a href="/dashboard" v-else-if="$nuxt.$route.name  !== 'dashboard'">
                 <div  class="navbar-component" >
-                    <b-icon class="icon"  icon="house" font-scale="2.5"></b-icon>
+                    <b-icon class="icon"  icon="house" font-scale="2"></b-icon>
                     <p>Home</p>
                 </div>
             </a>
 
             <a href="/dashboard/tutorial" v-if="$nuxt.$route.name === 'dashboard-tutorial'">
                 <div class="navbar-component" >
-                    <b-icon class="icon" style="color:#9370db"  icon="bar-chart-steps" font-scale="2.5" ></b-icon>
+                    <b-icon class="icon" style="color:#9370db"  icon="bar-chart-steps" font-scale="2" ></b-icon>
                     <p class="mouv" >Tutorial</p>
                 </div>
             </a>
             <a href="/dashboard/tutorial" v-else-if="$nuxt.$route.name  !== 'dashboard-tutorial'">
                 <div  class="navbar-component" >
-                    <b-icon class="icon"  icon="bar-chart-steps" font-scale="2.5"></b-icon>
+                    <b-icon class="icon"  icon="bar-chart-steps" font-scale="2"></b-icon>
                     <p>Tutorial</p>
                 </div>
             </a>
@@ -31,40 +31,55 @@
 
             <a href="/dashboard/article-editor" v-if="$nuxt.$route.name === 'dashboard-article-editor'">
                 <div class="navbar-component" >
-                    <b-icon class="icon" style="color:#9370db"  icon="journal-plus" font-scale="2.5" ></b-icon>
+                    <b-icon class="icon" style="color:#9370db"  icon="journal-plus" font-scale="2" ></b-icon>
                     <p class="mouv">New article</p>
                 </div>
             </a>
             <a href="/dashboard/article-editor" v-else-if="$nuxt.$route.name  !== 'dashboard-articleEditor'">
                 <div  class="navbar-component" >
-                    <b-icon class="icon"  icon="journal-plus" font-scale="2.5" ></b-icon>
+                    <b-icon class="icon"  icon="journal-plus" font-scale="2" ></b-icon>
                     <p >New article</p>
                 </div>
             </a>
 
+
+            <a href="/dashboard/photos" v-if="$nuxt.$route.name === 'dashboard-photos'">
+                <div class="navbar-component" >
+                    <b-icon class="icon" style="color:#9370db"  icon="camera-fill" font-scale="2" ></b-icon>
+                    <p class="mouv">Photos</p>
+                </div>
+            </a>
+            <a href="/dashboard/photos" v-else-if="$nuxt.$route.name  !== 'dashboard-photos'">
+                <div  class="navbar-component" >
+                    <b-icon class="icon"  icon="camera-fill" font-scale="2" ></b-icon>
+                    <p >Photos</p>
+                </div>
+            </a>
+
+
             <a href="/dashboard/my-articles"  v-if="$nuxt.$route.name[10] === 'm' && $nuxt.$route.name[11] === 'y' ">
                 <div class="navbar-component" >
-                    <b-icon class="icon" style="color:#9370db" icon="newspaper" font-scale="2.5"></b-icon>
+                    <b-icon class="icon" style="color:#9370db" icon="newspaper" font-scale="2"></b-icon>
                     <p class="mouv">My articles</p>
                 </div>
             </a>
 
             <a href="/dashboard/my-articles" v-else-if="$nuxt.$route.name  !== 'dashboard-my-articles'">
                 <div class="navbar-component" >
-                    <b-icon class="icon"  icon="newspaper" font-scale="2.5"></b-icon>
+                    <b-icon class="icon"  icon="newspaper" font-scale="2"></b-icon>
                     <p>My articles</p>
                 </div>
             </a>
 
             <a href="/dashboard/admin"  v-if="$store.state.user.role === 'admin'">
                 <div class="navbar-component" >
-                    <b-icon class="icon" icon="geo-fill" font-scale="2.5"></b-icon>
+                    <b-icon class="icon" icon="geo-fill" font-scale="2"></b-icon>
                     <p>Admin</p>
                 </div>
             </a>
 
                 <div class="navbar-component log-out-button">
-                    <b-icon class="icon"  icon="box-arrow-left" font-scale="2.5" @click="logOutUser()"></b-icon>
+                    <b-icon class="icon"  icon="box-arrow-left" font-scale="2" @click="logOutUser()"></b-icon>
                     <p  @click="logOutUser()">Log out</p>
                 </div>
 

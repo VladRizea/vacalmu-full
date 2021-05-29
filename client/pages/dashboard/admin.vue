@@ -13,20 +13,21 @@
     </div>
     <br>
     <br>
-    <div v-if="articles[0]">
-      <h2 v-if="articlesPublic[0]">Released Articles</h2>
-      <div v-for="article of articlesPublic" :key="article._id" class="released-articles">
-        <postCard  class="item content" :article="article"></postCard>
+      <div class="container-articles-wrapper">
+    <div class="container-articles" @keypress.enter="searchArticles()">
+      <br>
+      <h1>Expuneri</h1>
+      <br>
+      <div class="article-search-field-wrapper">
+          <input type="text" placeholder="Caută ceva" v-model="searchQuery">
+          <div class="send-button"  @click="searchArticles()"><b-icon class="icon"  icon="search"></b-icon></div>
       </div>
-      <h2 v-if="articlesReady[0]">Ready Articles</h2>
-      <div v-for="article of articlesReady" :key="article._id" class="draft-articles">
-        <postCard  class="item content"  :key="article._id"  :article="article"></postCard>
-      </div>
-      <h2 v-if="articlesDraft[0]">Draft Articles</h2>
-      <div  v-for="article of articlesDraft" :key="article._id"  class="articles-wrapper">
-        <postCard class="item content" :article="article"></postCard>
-      </div>
+      <br>
+      <post-card  v-for="article in articles"  :key="article._id" :article="article"></post-card>
+      <br>
     </div>
+  </div>
+
     <h1 v-if="!articles[0]" style="color: gray">Looks like you should add some articles! :)</h1><h1 id="title" contenteditable="true" data-text="Title"></h1>
   </div>
 </template>
@@ -35,6 +36,7 @@
 
 import postCard from '../../components/post_card';
 import axios from 'axios';
+import Post_card from '../../components/post_card.vue';
 
 export default {
     middleware: 'only-admin',
@@ -42,11 +44,14 @@ export default {
     components:{
       postCard,
     },
-    data() {
+    data () {
         return {
             linkName: '',
             link: '',
             linkOName: '',
+            searchArticle: '',
+            searchedArticles: [],
+            searchQuery:'',
         }
     },
     computed: {
@@ -58,30 +63,28 @@ export default {
       this.link = window.location.host + '/register?generatorToken='
     },
 
-    async asyncData({$axios, store}) {
+    async asyncData({$axios, store, route}) {
       let liveInvitation = [];
       store.state.user._id;
       await $axios.$get(`/api/v1/auth/getTokens`)
       .then(response => {liveInvitation = response.data;});
 
+      const searchQuery = route.query.search;
       let articles = [];
-      let articlesPublic = [];
-      let articlesReady = [];
-      let articlesDraft = [];
-      const userId = store.state.user._id;
-      await $axios.$get(`/api/v1/articles`)
-      .then(response => {articles = response.data ;});
-
-      for(var i=0; i<articles.length; i++){
-        if(articles[i].state === 'public') articlesPublic.push(articles[i]);
-        if(articles[i].state === 'ready') articlesReady.push(articles[i]);
-        if(articles[i].state === 'draft') articlesDraft.push(articles[i]);
+      if(!searchQuery){
+      await $axios.$get(`/api/v1/articles?state=ready`)
+      .then(response => {articles = response.data;});
+      }
+      else{
+      await $axios.$get(`/api/v1/articles/search?search=${searchQuery}`)
+      .then(response => {
+          articles = response.data;
+          });
       }
 
 
 
-
-      return { liveInvitation, userId, articles, articlesDraft, articlesReady, articlesPublic };
+      return { liveInvitation, articles};
     },
     methods: {
      async generateInvitation(){
@@ -90,7 +93,16 @@ export default {
             },
           {withCredentials: true})
           .then(response => {this.link = this.link + response.data.token; this.linkOName = response.data.name});
-      }
+      },
+        resetSearch(){
+            this.searchArticle = '';
+            this.searchedArticles = [];
+    },
+
+    searchArticles(){
+      window.history.pushState('page2', 'Title', `/dashboard/admin?search=${this.searchQuery}`);
+      location.reload();
+    }
     },
 }
 </script>
@@ -103,7 +115,6 @@ export default {
 @import "../../assets/colors";
 
 body{
-  background: $cGhostWhite;
 
  .big-index-dash-wrapper{
   color:$cBlackGray;
@@ -113,9 +124,10 @@ body{
   @include justify-content(center);
   @include flex-direction(column);
   h1{
-    padding: 50px 0 0 100px;
-    font-size: 50px;
-    color: $cBlackGray;
+        font-size: 70px;
+        font-weight: bold;
+        color: $cBetterBlack;
+        padding-left: 20px;
   }
   h2{
     padding: 20px;
@@ -125,17 +137,17 @@ body{
     padding:10px;
     font-size: 30px;
     border: none;
-    background: $cGhostWhite;
+
 
     &:focus{
         border-left: 2px solid gray;
         outline: none;
-        background: $cGhostWhite;
+
     }
     &:active{
         border-left: 2px solid gray;
         outline: none;
-        background: $cGhostWhite;
+
     }
    }
 .activeLinkCardGrid{
@@ -151,7 +163,65 @@ body{
     color: $cGhostWhite;
   }
 }
+  .container-articles-wrapper{
+    width: 100%;
+      .container-articles{
 
+      width: 100%;
+      max-width: 1620px;
+      min-height: 100vh;
+      margin: 0 auto;
+      h1{
+        font-size: 70px;
+        font-weight: bold;
+        color: $cBetterBlack;
+        padding-left: 20px;
+      }
+      .article-search-field-wrapper{
+        padding-left: 20px;
+        width: 90%;
+          @include flexbox();
+          @include justify-content(flex-start);
+          @include flex-direction(row);
+          input{
+              padding: 10px;
+              background-color: white;
+              height:55px;
+              width:350px;
+              @include sm{
+                width: 60%;
+              }
+              border: none;
+              border-radius: 4px 0 0 4px;
+              @include transition(all, 0.3s, linear);
+              font-size: 20px;
+              &:focus{
+              outline: none;
+          }
+          }
+          .send-button{
+              cursor: pointer;
+              border-radius:0 4px  4px 0;
+
+              height:55px;
+              width:auto;
+              background-color: white;
+              padding: 4px;
+              @include flexbox();
+              @include justify-content(center);
+              @include flex-direction(column);
+              align-content: center;
+              .icon{
+
+                font-size: 40px;
+                padding: 10%;
+                color: $cBetterBlack;
+                cursor: pointer;
+              }
+          }
+      }
+      }
+  }
 .button {
     width: 300px;
     background-color: $cBlackGray;
@@ -174,7 +244,9 @@ body{
 
 
 }
+
  }
+
 }
 
 </style>

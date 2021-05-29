@@ -90,10 +90,10 @@ export default {
 @import "../assets/screen-size";
 @import "../assets/transition";
 
+$neu-shadow: 9px 9px 16px rgba(163,177,198,0.6);
 
-body{
-  background: $cBlackGray;
-}
+$new-shadow-active: 0px 0px 20px 12px rgba(0,0,0,0.1);
+
 .container-about {
   margin: 0 auto 10px auto;
   width: 100%;
@@ -106,6 +106,15 @@ body{
   @include flex-direction(column);
 
 .postcard { // Postcard "inside"
+  box-shadow: $neu-shadow;
+  margin: 1em;
+  background-color: $cGhostWhite ;
+  transition-timing-function: ease-out;
+  transition: all 0.25s ease;
+  &:hover {
+    box-shadow: $new-shadow-active;
+
+  }
   width: 100%;
   max-width: 750px;
   margin: 0px auto;

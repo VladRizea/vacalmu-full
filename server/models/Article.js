@@ -31,12 +31,13 @@ const ArticleSchema = new mongoose.Schema({
   thumbnail: {
     type: String,
   },
-  thumbnailSquare: {
-    type: String,
-  },
   user: {
+    profilePicture: String,
     name: String,
     _id: String,
+  },
+  publisher:{
+    type: String,
   },
   tags: {
     type: [String],
@@ -62,6 +63,9 @@ const ArticleSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  recomandedArticles: {
+    type: [],
+  },
   likers: {
     type: [],
   },
@@ -82,8 +86,8 @@ const ArticleSchema = new mongoose.Schema({
 ArticleSchema.plugin(mongoose_fuzzy_searching, {
   fields: [
     { name: 'title', weight: 5, },
-    { name: 'description', weight: 3, prefixOnly: true, },
-    { name: 'tags', weight: 2, },
+    { name: 'description', weight: 2, prefixOnly: true, },
+    { name: 'tags', weight: 3, },
   ]
 });
 

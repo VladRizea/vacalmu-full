@@ -7,9 +7,6 @@ const CategoriesSchema = new mongoose.Schema(
     name: {
       type: String,
     },
-    thumbnail: {
-      type: String,
-    },
     createdAt: {
       type: Date,
       default: Date.now,

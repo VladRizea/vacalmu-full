@@ -7,6 +7,7 @@ const errorHandler = require('./middleware/error');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 
+const aws = require('aws-sdk');
 //* Import routes
 const articles = require('./routes/articles');
 const auth = require('./routes/auth');
@@ -14,7 +15,8 @@ const users = require('./routes/users');
 const reviews = require('./routes/reviews');
 const categories = require('./routes/categories');
 const feed = require('./routes/feed');
-
+const upload = require('./routes/upload');
+const email = require('./routes/email');
 
 
 //* Load the database
@@ -35,8 +37,7 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  // origin: 'http://localhost:3000',
-  origin: 'vacalmu.live',
+  origin: 'http://localhost:3000',
   credentials: true
 }));
 
@@ -65,8 +66,12 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/reviews', reviews);
 app.use('/api/v1/categories', categories);
 app.use('/api/v1/feed', feed);
+app.use('/api/v1/upload', upload);
+app.use('/api/v1/email', email);
 
 app.use(errorHandler);
+
+
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,10 +1,14 @@
 <template>
 <div >
-  <div v-if="!isOpen">
+  <div>
       <div class="nav-bar-dashboard" id="navbar-left">
         <div class="nav-bar-container">
           <a id="title" href="/">VACALMU</a>
-          <b-icon class="icon"  icon="list" font-scale="2.5" @click="isOpen = true"></b-icon>
+          <div class="stacked-icons">
+          <b-icon class="icon" id="menuButtonHam"  icon="list" font-scale="2.5" @click="toggleMenu()"></b-icon>
+          <b-icon class="icon active" id="menuButtonX"  icon="x" font-scale="2.5" @click="toggleMenu()"></b-icon>
+          </div>
+
         </div>
       </div>
       <div class="cookie-policy-acceptance animationIn" v-if="cookiePolicy">
@@ -20,57 +24,16 @@
   </div>
 
 
-  <div v-if="isOpen" class="open-menu">
+  <div class="open-menu">
 
-      <div class="nav-bar-dashboard" id="navbar-left">
-        <div class="nav-bar-container">
-          <a id="title" href="/">VACALMU</a>
-          <b-icon class="icon"  icon="list" font-scale="2.5"  @click="isOpen = false"></b-icon>
-        </div>
-      </div>
-
-      <div class="link-column">
-        <a class="link-button"  href="/expuneri" @click="isOpen=false">
-                <p class=" link-button-text">Expuneri</p>
-        </a>
-
-        <a class="link-button"  href="/categorii" @click="isOpen=false">
-                <p class=" link-button-text">Categorii</p>
-        </a>
-
-        <a class="link-button"  href="/contact" @click="isOpen=false">
-                <p class=" link-button-text">Contact</p>
-        </a>
-        <div class="social-buttons-row">
-
-          <a href="https://www.instagram.com/vacalmu">
-            <div  class=" link-social-button">
-                <b-icon class="icon"  icon="instagram"></b-icon>
-            </div>
-          </a>
-
-          <a href="https://www.facebook.com/vacalmu">
-            <div  class="link-social-button">
-                <b-icon class="icon"  icon="facebook"></b-icon>
-            </div >
-          </a>
-
-          <a href="https://www.twitter.com/vacalmu">
-            <div  class="link-social-button">
-                <b-icon class="icon"  icon="twitter"></b-icon>
-            </div>
-          </a>
-
-          <a href="https://www.youtube.com/channel/UCcQ6h3RCM4jtIrpvpzrHu2g">
-            <div class="link-social-button">
-                <b-icon class="icon"  icon="youtube"></b-icon>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <carousel class="carousel"></carousel>
-
+    <div class="overlay" id="overlay">
+      <nav class="overlay-menu">
+        <ul>
+          <li ><a href="/expuneri">Expuneri</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
 
   </div>
 
@@ -125,6 +88,13 @@ export default {
   },
   methods:{
 
+    toggleMenu(){
+
+      document.getElementById('overlay').classList.toggle('open');
+      document.getElementById('menuButtonHam').classList.toggle('active');
+      document.getElementById('menuButtonX').classList.toggle('active');
+    },
+
     setCookiesTrue(){
 
       var cookieBlox = document.getElementsByClassName('cookie-policy-acceptance')[0];
@@ -142,8 +112,13 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style  lang='scss'>
 
+@import "../assets/colors";
+
+body{
+  background-color:$cGarme;
+}
 
 @import "../assets/screen-size";
 @import "../assets/transition";
@@ -171,22 +146,15 @@ html {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 15px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: $cBetterBlack;        /* color of the tracking area */
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background-color: #383838;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3.5px solid #101010;  /* creates padding around scroll thumb */
 }
 
   .nav-bar-dashboard{
@@ -196,7 +164,7 @@ html {
     z-index: 999;
     top: 0;
     left: 0;
-    background-color: $cBlackGrayAccent;
+    background-color: $cBetterBlack;
     overflow-y: hidden;
 
     align-content: center;
@@ -210,15 +178,30 @@ html {
       height: 50px;
       padding: 0 0.6vw;
       margin: 0 auto;
-      .icon{
-        color: $cGhostWhite;
-        align-self: center;
-        &:hover{
-          cursor: pointer;
-          opacity: 0.8;
+      .stacked-icons{
+        position: relative;
+        .icon{
+          position: absolute;
+          top: 5px;
+          margin: 0 auto;
+          right: 0;
+          z-index: 50;
+          color: $cGhostWhite;
+          align-self: center;
+          @include transition(all, 0.3s, linear);
+          &:hover{
+            cursor: pointer;
+            opacity: 0.8;
+          }
+          &.active{
+            top: -50px;
+
+          }
+
         }
 
       }
+
       #title{
         color: $cGhostWhite;
         margin-left: 10px;
@@ -275,7 +258,7 @@ html {
   bottom: 0;
   left: 0;
   padding: 10px;
-  background: $cBlackGrayAccent;
+  background: $cBetterBlack;
   color: $cGhostWhite;
   p{
     margin: auto;
@@ -285,7 +268,7 @@ html {
     width: 200px;
     background-color: $cGhostWhite;
     border: none;
-    color: $cBlackGray ;
+    color: $cBetterBlack ;
     padding: 10px 26px;
     text-align: center;
     text-decoration: none;
@@ -296,7 +279,7 @@ html {
 
     cursor: pointer;
     &:hover{
-        background-color: $cBlackGray ;
+        background-color: $cBetterBlack ;
         color: $cGhostWhite;
     }
   }
@@ -340,7 +323,7 @@ html {
 
   #footer{
     width: 100%;
-    background-color: $cBlackGrayAccent;
+    background-color: $cBetterBlack;
     overflow-y: hidden;
     padding-top:50px;
       @include flexbox();
@@ -378,78 +361,118 @@ html {
 
 
 .open-menu{
+ .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 1620px;
+  height: 100%;
+  opacity: 1;
+  visibility: hidden;
+  transition: opacity .35s, visibility .35s, width .35s;
+  z-index: 50;
+
+  &:before {
+    content: '';
+    background: $cBetterBlack;
+    left: -55%;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    transition: left .35s ease;
+  }
+
+  &:after {
+    content: '';
+    background: $cBetterBlack;
+    right: -55%;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    transition: all .35s ease;
+  }
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+ width: 100%;
   min-height: 100vh;
   margin: auto;
   align-content: center;
-  @include xl(){
-    @include flexbox();
-    @include justify-content(center);
-    @include flex-direction(row);
-  }
-    @include flexbox();
-    @include justify-content(center);
-    @include flex-direction(column);
-  background-color: $cBlackGray;
-  .link-column{
-
-
-    @include xl{
-      margin: auto 10px;
+    &:before {
+      left: 0;
     }
 
-    margin: auto 0;
+    &:after {
+      right: 0;
+    }
 
+    li {
+      animation: fadeInRight .5s ease forwards;
+      animation-delay: .35s;
 
-    .link-button{
+      &:nth-of-type(2) {
+        animation-delay: .45s;
+      }
+      &:nth-of-type(3) {
+        animation-delay: .55s;
+      }
+      &:nth-of-type(4) {
+        animation-delay: .65s;
+      }
+    }
+  }
+  nav {
+    position: relative;
+    height: auto;
+    top: 30%;
+    font-size: 60px;
+    font-family: karla;
+    font-weight: bold;
+    text-align: center;
+    z-index: 100;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: inline-block;
+    position: relative;
+    height: 100%;
 
-        height: 75px;
-        width: auto;
-        background: $cGhostWhite;
-        margin: 10px 0 0 0;
-        @include flexbox();
-        @include justify-content(center);
-        @include flex-direction(row);
-        padding: 0;
-        &:hover{
+    li {
+      display: block;
+      height: 25%;
+      min-height: 50px;
+      position: relative;
+      opacity: 0;
+
+      a {
+        display: block;
+        position: relative;
+        color: $cGhostWhite;
         text-decoration: none;
+        overflow: hidden;
+         @include transition(all, 0.1s, linear);
+        &:hover{
+          opacity: 0.6;
         }
-        .link-button-text{
-          font-size: 35px;
-          color: $cBlackGray;
-          margin: auto auto;
-          &:hover{
-              text-decoration: none;
-          }
-        }
-      }
-    .social-buttons-row{
-
-        margin:  0 auto;
-        width: 345px;
-        @include flexbox();
-        @include justify-content(space-between);
-        @include flex-direction(row);
-      .link-social-button{
-        margin: 10px 0 0 5px;
-
-        align-content: center;
-        justify-content: center;
-          .icon{
-              color: $cGhostWhite;
-              justify-self: center;
-              margin: auto auto;
-              font-size: 50px;
-          }
       }
     }
-}
-.carousel{
-    @include lg(){
-      display: none;
   }
-  margin: auto 0;
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    left: 20%;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+  }
 }
 }
 

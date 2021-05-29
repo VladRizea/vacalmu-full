@@ -1,70 +1,79 @@
 <template>
-  <div class="container-articles">
+  <div class="content-articles">
 
-    <div  class="search-bar">
-        <b-icon v-if="searchArticle === ''" class="icon" id="bold" icon="search" ></b-icon>
-        <b-icon v-if="searchArticle !== ''" class="icon x" id="bold" icon="x" size="4"  @click="resetSearch()"></b-icon>
-        <input id="search" v-model="searchArticle"  placeholder="Caută o expunere" autocomplete="off"/>
-        <br>
+  <newsletterComponent></newsletterComponent>
+
+  <div class="container-articles-wrapper">
+    <div class="container-articles" @keypress.enter="searchArticles()">
+      <br>
+      <h1>Expuneri</h1>
+      <br>
+      <div class="article-search-field-wrapper">
+          <input type="text" placeholder="Caută ceva" v-model="searchQuery">
+          <div class="send-button"  @click="searchArticles()"><b-icon class="icon"  icon="search"></b-icon></div>
+      </div>
+      <br>
+      <latestArticles  v-for="article in articles"  :key="article._id" :article="article"></latestArticles>
+      <br>
     </div>
-
-
-    <div v-if="!searchedArticles[0]" class="article-grid"  >
-      <gridArticleCard  class="grid-component"  v-for="article of articles " :key="article._id"  :article="article" ></gridArticleCard>
-    </div>
-
-
-
-    <div v-if="searchedArticles[0]" class="article-grid"  >
-      <gridArticleCard  class="grid-component"  v-for="article of searchedArticles " :key="article._id"  :article="article" ></gridArticleCard>
-    </div>
-
   </div>
+
+  <followUsCards></followUsCards>
+    </div>
 </template>
 
 <script>
 import axios from 'axios';
 
-import topArticleCard from '../../components/top_article_card';
-import gridArticleCard from '../../components/grid_article_card';
-
+import latestArticles from "../../components/2small-article-card.vue"
+import newsletterComponent from '../../components/2news-letter-component';
+import followUsCards from '../../components/2follow-us-cards';
 
 export default {
     components:{
-      topArticleCard,
-      gridArticleCard,
+      latestArticles,
+      newsletterComponent,
+      followUsCards,
     },
 
     data () {
       return{
         searchArticle: '',
         searchedArticles: [],
+        searchQuery:'',
       }
     },
 
-    async asyncData({$axios}) {
+    async asyncData({$axios, route}) {
+      const searchQuery = route.query.search;
       let articles = [];
+      if(!searchQuery){
       await $axios.$get(`/api/v1/articles?state=ready`)
       .then(response => {articles = response.data;});
-    return { articles }; // equivalent to { products: products }
+      }
+      else{
+      await $axios.$get(`/api/v1/articles/search?search=${searchQuery}`)
+      .then(response => {
+        console.log(response.data);
+          articles = response.data;
+          });
+      }
+    return { articles, searchQuery }; // equivalent to { products: products }
+
     },
     mounted(){
 
-        let app = this;
-
-        document.getElementById('search').addEventListener('keydown',async function(){
-        if(app.searchArticle === '') app.searchedArticles = [];
-        await axios.get(`/api/v1/articles/search?search=${app.searchArticle}`)
-        .then(response => {
-            app.searchedArticles = response.data.data;
-            });
-        });
     },
     methods:{
         resetSearch(){
             this.searchArticle = '';
             this.searchedArticles = [];
     },
+
+    searchArticles(){
+      window.history.pushState('page2', 'Title', `/expuneri?search=${this.searchQuery}`);
+      location.reload();
+    }
   },
       head() {
     return {
@@ -129,149 +138,81 @@ export default {
 @import "../../assets/screen-size";
 @import "../../assets/transition";
 
-body{
-  background: $cBlackGray;
-}
+.content-articles{
 
-.container-articles {
-  margin: 50px auto  10px auto;
+  margin: 50px auto auto auto;
   width: 100%;
-  max-width: 1620px;
-  min-height: 100vh;
-  transition: height 1s;
-  @include flexbox();
-  @include justify-content(flex-start);
-  @include align-content(center);
-  @include flex-direction(column);
+  .container-articles-wrapper{
+    width: 100%;
+    background-color:$cGarme ;
+      .container-articles{
 
+      width: 100%;
+      max-width: 1620px;
+      min-height: 100vh;
+      margin: 0 auto;
+      h1{
+        font-size: 70px;
+        font-weight: bold;
+        color: $cBetterBlack;
+        padding-left: 20px;
+      }
+      .article-search-field-wrapper{
+        padding-left: 20px;
+        width: 90%;
+          @include flexbox();
+          @include justify-content(flex-start);
+          @include flex-direction(row);
+          input{
+              padding: 10px;
+              background: $cGhostWhite;
+              height:55px;
+              width:350px;
+              @include sm{
+                width: 60%;
+              }
+              border: none;
+              border-radius: 4px 0 0 4px;
+              @include transition(all, 0.3s, linear);
+              font-size: 20px;
+              &:focus{
+              outline: none;
+          }
+          }
+          .send-button{
+              cursor: pointer;
+              border-radius:0 4px  4px 0;
+              background: $cGhostWhite;
+              height:55px;
+              width:auto;
 
-    .search-bar{
-    @include flexbox();
-    @include justify-content(center);
-    @include flex-direction(row);
-    background: $cGhostWhite;
-    width: 90%;
-    height: 60px;
-    margin:  50px auto ;
-    .icon{
-
-        color: gray;
-        margin: auto 10px;
-        font-size: 35px;
-    }
-    .x{
-        &:hover{
-        color: $cErrorRed;
-        cursor: pointer;
-        }
-    }
-    #search{
-        font-size: 20px;
-        border: none;
-        background: $cGhostWhite;
-        color: gray;
-        &:focus{
-            outline: none;
-            color: $cBlackGray;
-            background: $cGhostWhite;
-        }
-        &:active{
-            outline: none;
-            color: $cBlackGray;
-            background: $cGhostWhite;
-        }
-    }
-    }
-
-
-    h1{
-      color: $cGhostWhite;
-      margin: 50px 10px 50px 10px;
-    }
-    h2{
-      color: $cGhostWhite;
-      margin: 50px 10px 50px 10px;
-    }
-
-@include xl{
-
-    .article-grid{
-
-    @include flexbox();
-    @include align-items(center);
-    @include justify-content(center);
-    align-self: center;
-    height: 560px;
-    width: 95%;
-    flex-wrap: wrap;
-    height: auto;
-    margin: 0; /* To remove default bottom margin */
-    padding: 0; /* To remove default left padding */
+              padding: 4px;
+              @include flexbox();
+              @include justify-content(center);
+              @include flex-direction(column);
+              align-content: center;
+              .icon{
+                font-size: 40px;
+                padding: 10%;
+                color: $cBetterBlack;
+                cursor: pointer;
+              }
+          }
+      }
+      }
   }
-
-
-}
-@include lg{
-
-   .article-grid{
-
-    @include flexbox();
-    @include align-items(center);
-    @include justify-content(center);
-    align-self: center;
-    height: auto;
-    flex-wrap: wrap;
-    width: 95%;
-    margin: 0; /* To remove default bottom margin */
-    padding: 0; /* To remove default left padding */
+  .background-image{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+    z-index: -19;
   }
 
 }
 
-  .load-more-newest-articles {
-    width: 200px;
-    background-color: $cGhostWhite;
-    border: none;
-    color: $cBlackGray ;
-    padding: 10px 26px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    margin: 15px auto;
-    border: solid 0.5px $cGhostWhite;
-    @include transition(all, 0.3s, linear);
-
-    cursor: pointer;
-    &:hover{
-        background-color: $cBlackGray ;
-        color: $cGhostWhite;
-        text-decoration: none;
-        b{
-          text-decoration: none;
-        }
-    }
-    &:active{
-        background-color: $cBlackGray ;
-        color: $cGhostWhite;
-        text-decoration: none;
-
-    }
-  }
-
-
-  .grid-component{
-    margin:10px;
-    @include xl{
-      flex-basis:  27.333333%;
-    }
-    @include lg{
-      flex-basis: 45.333333%;
-    }
-    @include sm{
-      flex-basis: 95%;
-    }
-  }
-}
 
 </style>
 

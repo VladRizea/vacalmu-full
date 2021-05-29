@@ -8,6 +8,7 @@ const {
   updateArticle,
   actionArticle,
   searchArticles,
+  getArticleSlug,
 } = require('../controllers/articles');
 
 const Article = require('../models/Article');
@@ -28,7 +29,7 @@ router
 
 router
   .route('/')
-  .get(advancedResults(Article), getArticles)
+  .get(advancedResults(Article, 'recomandedArticles'), getArticles)
   .post(protect, authorize('admin', 'publisher'), postArticle);
 
 router
@@ -36,6 +37,11 @@ router
   .get(protect, getArticle)
   .delete(protect, authorize('admin', 'publisher'), deleteArticle)
   .put(protect, authorize('admin', 'publisher'), updateArticle);
+
+router
+.route('/single/:slug')
+.get(getArticleSlug);
+
 
 router
   .route('/:id/:action')

@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema({
     default: 'user',
     immutable: true,
   },
+  profilePicture:{
+    type: String,
+    default: 'https://vacalmu.fra1.digitaloceanspaces.com/default%20profile%20picture.jpg'
+  },
   password: {
     type: String,
     required: [true, 'Please add a password'],

@@ -32,17 +32,29 @@
         <p v-if="tags.length > 0" class="selected-category"> <span style="color:#090909">Selected tags:</span> <span class="hover-tag" v-for="tag in tags" :key="tag.id" @click="tags.pop(tag)">{{tag}} </span></p>
         <br><br>
 
-        <input id="thumbnail" v-model="thumbnailUrlModel" placeholder="Thumbnail (1920x1080)"/>
+        <input id="recomanded" v-model="recomandedArticlesQuery"  placeholder="Search articles to recomand" autocomplete="off"/>
+
+           <p v-if="selectedArticles.length !== 0">Selected: {{selectedArticles.length}}</p>
+           <p v-if="selectedArticles.length === 3">This is the max!</p>
+
+            <div :class="{'select-article': true, 'added-article': selectedArticles.includes(article._id)}"  v-for="article in recomandedArticles" :key="article.id" :article="article" @click="selectArticle(article)">
+              {{article.title}}
+              <br><br>
+
+            </div>
+
+        <br><br>
+        <div class="">
+          <label for="file" class="custom-file-upload">
+            Upload Thumbnail
+        </label>
+          <input  type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+        </div>
         <br>
         <br>
         <img  v-if="thumbnailUrl"  :src="thumbnailUrl" alt="-">
         <div v-if="thumbnailUrl"><br></div>
 
-        <input id="thumbnail-square" v-model="thumbnailUrlModelSquare" placeholder="Square thumbnail (1080x1080)"/>
-        <br>
-        <br>
-        <img  v-if="thumbnailUrlSquare"  :src="thumbnailUrlSquare" alt="-">
-        <div v-if="thumbnailUrlSquare"><br></div>
 
         <input type="checkbox" name="checkbox" v-model="readyness" @click="setArtState()" id="checkbox">
         <label for="checkbox" class="switch"></label>
@@ -63,19 +75,18 @@
 import axios from 'axios';
 
 import Vue from 'vue';
+import SmallArticleCard from '../../components/2small-article-card.vue';
 
 export default {
+  components: { SmallArticleCard },
     middleware: 'restricted-routes',
     layout: 'dashboard',
     data(){
-        
+
         return {
         linking: false,
         url: "",
         thumbnailUrl: '',
-        thumbnailUrlModel: '',
-        thumbnailUrlSquare: '',
-        thumbnailUrlModelSquare: '',
         categories: [],
         category: '',
         openCat: false,
@@ -93,11 +104,15 @@ export default {
         title: '',
         content: '',
         description: '',
-        
+
+        recomandedArticles: [],
+        recomandedArticlesQuery: '',
+        selectedArticles: [],
+
         }
-        
+
     },
-    mounted() { 
+    mounted() {
 
         let app = this;
 
@@ -107,62 +122,77 @@ export default {
     };
 
         document.getElementById('category').addEventListener('keydown',async function(){
-        
+
         await axios.get(`/api/v1/categories/search?search=${app.searchCat}`)
-        .then(response => { 
+        .then(response => {
             if(!response.data.data[0]) {app.newCat = app.searchCat;}
             app.categories = response.data.data;
             });
         });
 
-        document.getElementById('thumbnail').addEventListener('paste',async function(){
-            app.thumbnailUrl = app.thumbnailUrlModel
-            
-        });
-        document.getElementById('thumbnail').addEventListener('keyup',async function(){        
-           app.thumbnailUrl = app.thumbnailUrlModel
-            
-        });
-        document.getElementById('thumbnail').addEventListener('keydown',async function(){
-            app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-            
+        document.getElementById('recomanded').addEventListener('keydown',async function(){
+
+        await axios.get(`/api/v1/articles/search?search=${app.recomandedArticlesQuery}`)
+        .then(response => {
+            app.recomandedArticles = response.data.data;
+            });
         });
 
-        document.getElementById('thumbnail-square').addEventListener('paste',async function(){
-            app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-            app.isThumbnail = true;
-        });
-        document.getElementById('thumbnail-square').addEventListener('keyup',async function(){        
-           app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-            app.isThumbnail = true;
-        });
-        document.getElementById('thumbnail-square').addEventListener('keydown',async function(){
-            app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-             app.isThumbnail = true;
-        });
-    
   },
   methods: {
+    async handleFileUpload(){
+         this.file = this.$refs.file.files[0];
+
+            let formData = new FormData();
+
+            formData.append('file', this.file);
+
+        await axios.put( '/api/v1/upload',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then((response) => {
+              this.thumbnailUrl = response.data.data;
+
+        })
+        .catch(function(){
+        });
+
+      },
+      selectArticle(article){
+        if (!this.selectedArticles.includes(article._id)) this.selectedArticles.push(article._id);
+        else{
+          for( var i = 0; i < this.selectedArticles.length; i++){
+          if ( this.selectedArticles[i] === article._id) {
+            this.selectedArticles.splice(i, 1);
+          }
+
+          }
+        }
+
+        this.recomandedArticlesQuery = '';
+        this.recomandedArticles = [];
+
+      },
       setArtState(){
           this.readyness === false ? this.state = 'ready' : this.state = 'draft';
-          
+
       },
       setTag(){
-          this.tags.push(this.tagg); 
+          this.tags.push(this.tagg);
 
           this.tagg = '';
       },
       async addCat() {
-       
-        if(!this.thumbnailUrlSquare) this.thereWasAnError = 'You need to add a square thumbnail first!'
-        else{
          this.category = this.newCat;
         await axios.post(`/api/v1/categories`, {
             'name':  this.category,
-            'thumbnail' : this.thumbnailUrlSquare
         })
         .then(()=>{document.getElementById('category').innerHTML = ""; this.categories = [];})
-        .catch(err => {this.thereWasAnError = "There was an error"});}
+        .catch(err => {this.thereWasAnError = "There was an error"});
 
          this.categories = [];
          this.searchCat = '';
@@ -177,17 +207,18 @@ export default {
       },
 
     async saveArticle(){
+
         await axios.post(`/api/v1/articles`,{
-           
+
             'title': this.title,
             'description': this.description,
             'content': this.content,
             'visible': false,
             'category':this.category,
             'thumbnail':this.thumbnailUrl,
-            'thumbnailSquare':this.thumbnailUrlSquare,
             'tags':this.tags,
             'state' : this.state,
+            'recomandedArticles' : this.selectedArticles,
           },)
           .then(response => window.location.href = "/dashboard/my-articles")
           .catch(error => this.thereWasAnError = 'There was an error and your article was not posted');
@@ -205,16 +236,16 @@ export default {
 @import "../../assets/colors";
 
 #editing-body {
-    background: $cGhostWhite;
+
     margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
-    
+
 .linking-field{
         @include flexbox();
         @include justify-content(center);
         @include flex-direction(row);
-    
+
     .icon{
         color: gray;
     }
@@ -239,19 +270,19 @@ margin-left: 50px;
     padding: 13px 32px;
     text-align: center;
     text-decoration: none;
-    
+
     font-size: 16px;
     margin: 4px 2px;
     border: solid 0.5px $cBlackGray;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cGhostWhite;
         color: $cBlackGray;
     }
 
-    
+
 }
 .error-text{
     color: $cErrorRed;
@@ -318,6 +349,38 @@ margin-left: 50px;
         background: $cGhostWhite;
     }
 }
+#recomanded{
+    width: 500px;
+    padding:10px;
+    font-size: 30px;
+    border: none;
+    background: $cGhostWhite;
+
+    &:focus{
+        border-left: 2px solid gray;
+        outline: none;
+        background: $cGhostWhite;
+    }
+    &:active{
+        border-left: 2px solid gray;
+        outline: none;
+        background: $cGhostWhite;
+    }
+
+}
+
+    .select-article{
+      &:hover{
+        cursor: pointer;
+        color: $cAccentColor;
+      }
+    }
+    .added-article{
+
+      color: $cAccentColor;
+
+    }
+
 #tags{
     width: 400px;
     padding:10px;
@@ -337,10 +400,24 @@ margin-left: 50px;
     }
 }
 
+.custom-file-upload{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: $cGhostWhite;
+    font-size: 30px;
+    background-color: $cBlackGray;
+}
+
+#file{
+  display: none;
+}
+
 .hover-tag{
     &:hover{
         cursor: pointer;
-        text-decoration: underline;
+
     }
 }
 
@@ -371,7 +448,7 @@ margin-left: 50px;
 
 
 #description {
-    width: 900px;
+    width: auto;
     height: auto;
     padding:10px;
     font-size: 30px;
@@ -426,25 +503,6 @@ margin-left: 50px;
 
 
 #thumbnail{
-    width: 900px;
-    padding:10px;
-    font-size: 30px;
-    border: none;
-    background: $cGhostWhite;
-
-    &:focus{
-        border-left: 2px solid gray;
-        outline: none;
-        background: $cGhostWhite;
-    }
-    &:active{
-        border-left: 2px solid gray;
-        outline: none;
-        background: $cGhostWhite;
-    }
-}
-
-#thumbnail-square{
     width: 900px;
     padding:10px;
     font-size: 30px;

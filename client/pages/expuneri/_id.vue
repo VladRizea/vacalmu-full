@@ -1,40 +1,67 @@
 <template>
-  <div class="container">
-    <img class="thumbnail" :src="article.thumbnail" :alt="article.slug">
-    <br>
-    <p class="small-text">Expunere de <b>{{article.user.name}}</b> in categoria <b>{{article.category}}</b></p>
-    <br>
+<div class="wrapper-general">
+
+<div class="article-component-wrapper">
+  <div class="article-component">
+    <br><br>
+    <a :href="'/categorii/' + article.category  "><p class="small-card-label">{{article.category}}</p></a>
+    <br><br>
     <h1 class="article-title">{{article.title}}</h1>
-    <br>
-    <p class="description component">{{article.description}}</p>
-    <br>
-    <time class=" small-text" :datetime="article.createdAt">{{new Intl.DateTimeFormat('ro-RO').format(article.createdAt.month)}}</time>
-    <br><br><br><br>
-    <div class="content" v-html="article.sanitizedHTML"></div>
-    <br><br><br><br>
+      <div class="article-content">
+        <p class="article-description">{{article.description}}</p>
+        <br>
+        <div class="article-author">
+          <img class="profile-image" :src="article.publisher.profilePicture" :alt="article.publisher.name">
+          <p class="author-name">de {{article.user.name}}</p>
+        </div>
+        <br>
+        <br>
+        <img class="article-thumbnail" :src="article.thumbnail" :alt="article.title">
+        <br><br>
+
+        <div class="article-content-text"  v-html="article.sanitizedHTML[0]"></div>
+        <div class="article-content-text">
+          <newsLetter></newsLetter>
+        </div>
+        <div class="article-content-text" v-html="article.sanitizedHTML[1]"></div>
+        <br>
+        <div class="article-content-text">
+          <p >Tags: <span v-for="tag in article.tags" :key="tag">{{tag}}, </span> </p>
+        </div>
+      </div>
   </div>
+  <moreArticles :articles="article.recomandedArticles"></moreArticles>
+  <br><br>
+  <FollowUsCards></FollowUsCards>
+</div>
+</div>
 </template>
 
 <script>
 import axios from 'axios';
 
-
+import moreArticles from "../../components/2more-articles"
+import newsLetter from "../../components/2news-letter-component"
+import TitleComponent from '../../components/2title-component.vue';
+import FollowUsCards from '../../components/2follow-us-cards.vue';
 
 export default {
+
+  components:{
+    moreArticles,
+    newsLetter,
+    TitleComponent,
+    FollowUsCards,
+  },
 
     async asyncData({$axios, route}) {
 
     let article = [];
 
-if (process.server) {
-    await $axios.$get(`/api/v1/articles/?slug=${route.params.id}`)
-    .then(response => { article = response.data[0] ;});
+    await $axios.$get(`/api/v1/articles/single/${route.params.id}`)
+    .then(response => { article = response.data ;});
 
-    } else {
-      await $axios.$get(`/api/v1/articles/?slug=${route.params.id}`)
-    .then(response => { article = response.data[0] ;});
-
-    }
+    article.sanitizedHTML = article.sanitizedHTML.split("+newsletter");
 
 
     return {article}; // equivalent to { articles: articles }
@@ -121,154 +148,128 @@ script: [
 @import "../../assets/screen-size";
 @import "../../assets/transition";
 
-body{
-  background: $cBlackGray;
-
-@include xl{
-.container {
-  margin: 55px auto 10px auto;
+.wrapper-general{
+  padding-top: 50px;
+.article-component-wrapper{
+  height: auto;
+  min-height: 100vh;
   width: 100%;
   max-width: 1620px;
-  min-height: 100vh;
-  @include flexbox();
-  @include justify-content(flex-start);
-  @include align-content(center);
-  @include flex-direction(column);
-  .thumbnail{
-      width: 90%;
-      height: auto;
-      padding: 5px;
-      margin: 5px auto;
-  }
-  .article-title{
-      font-size: 3.8vw;
+  margin: 55px auto 0 auto;
+  .article-component{
+    height: auto;
+    width: 95%;
+
+    max-width: 1260px;
+    margin: 0 auto;
+    .small-card-label{
+      width: auto;
+      position:absolute;
+      background: $cBetterBlack;
+      text-transform: uppercase;
+      font-size: 1em;
       color: $cGhostWhite;
-      width: 60%;
-      margin: 5px auto;
+      padding: 0.5em;
+    }
+    .article-title{
       font-weight: bold;
-  }
-.description{
-    color: $cGhostWhite;
-    font-size: 1.8vw;
-    width: 60%;
-    margin: 5px auto;
-    &:hover{
-        text-decoration: none;
-    }
-  }
-  .name-and-date{
-  @include flexbox();
-  @include justify-content(space-between);
-  @include flex-direction(row);
-   width: 60%;
-   margin: 20px auto;
-  }
-  .small-text{
-    color: $cGhostWhite;
-    font-size: 1.2vw;
-    width: 60%;
-    margin: 0 auto;
+      font-size: 32px;
+      @include xl{
+      font-size: 50px;
 
-  }
-  .content{
-    margin: 0 auto;
-    width: 60%;
-    color: $cGhostWhite;
-    p{
-      font-size: 22px;
+      }
     }
-    h2{
-      font-size: 45px;
-    }
-    img{
-      width:100%;
-    }
-    .reclama{
+    .article-content{
       width: 100%;
-      max-width: 1620px;
-      min-height: 280px;
-      height: auto;
-    }
-.video_wrapper { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
-
-.video_wrapper iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-  }
-}
-}
-
-@include lg{
-.container {
-  margin: 55px auto 0.3vw auto;
-  width: 100%;
-  max-width: 1620px;
-  min-height: 100vh;
-  @include flexbox();
-  @include justify-content(flex-start);
-  @include align-content(center);
-  @include flex-direction(column);
-  .thumbnail{
-      width: 100%;
-      height: auto;
-      padding: 0.6vw;
-      margin: 0.6vw auto;
-  }
-  .article-title{
-      color: $cGhostWhite;
+      max-width: 840px;
+      .article-description{
+        font-size: 22px;
+      }
+      .article-thumbnail{
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+        user-select: none;
+          -moz-user-select: none;
+          -webkit-user-drag: none;
+          -webkit-user-select: none;
+          -ms-user-select: none;
+      }
+      .article-content-text{
+      margin: 0 auto;
       width: 95%;
-      height: auto;
-      margin: 0.6vw auto;
-      font-weight: bold;
-  }
+      color: $cBetterBlack;
+      p{
+        font-size: 22px;
+      }
+      ul{
+        font-size: 22px;
+      }
+      lI{
+        font-size: 22px;
+      }
+      h2{
+        font-size: 45px;
+      }
+      img{
+        border-radius: 5px;
+        width:100%;
+        user-select: none;
+          -moz-user-select: none;
+          -webkit-user-drag: none;
+          -webkit-user-select: none;
+          -ms-user-select: none;
+      }
+      strong{
+        color: $cLiliachiu;
+      }
+      a{
+        text-decoration: underline;
+        color: $cBetterBlack;
+        &:hover{
+          color: $cBetterBlackFaded;
+        }
+      }
+      ::-moz-selection { /* Code for Firefox */
+        color: $cGhostWhite;
+        background: $cLiliachiu;
+      }
 
-  .description{
-    color: $cGhostWhite;
-    font-size: 18px;
-    width: 95%;
-    margin: 0.6vw auto;
-    &:hover{
-        text-decoration: none;
+      ::selection {
+        color: $cGhostWhite;
+        background: $cLiliachiu;
+      }
+      .video_wrapper { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
+
+      .video_wrapper iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+      }
+      .article-author{
+    @include flexbox();
+    @include justify-content(flex-start);
+    @include flex-direction(row);
+
+        .profile-image{
+          height: 70px;
+          width: 70px;
+          border-radius: 70px;
+        user-select: none;
+          -moz-user-select: none;
+          -webkit-user-drag: none;
+          -webkit-user-select: none;
+          -ms-user-select: none;
+        }
+        .author-name{
+          font-size: 20px;
+          font-weight: bold;
+          margin: auto 0 auto 10px;
+        }
+      }
+
     }
-  }
-
-  .name-and-date{
-  @include flexbox();
-  @include justify-content(space-between);
-  @include flex-direction(row);
-   width: 95%;
-   margin: 20px auto;
-  }
-
-  .small-text{
-    color: $cGhostWhite;
-    font-size: 14px;
-    width: 95%;
-    margin: 0 auto;
-  }
-
-  .content{
-    margin: 0 auto;
-    width: 95%;
-    color: $cGhostWhite;
-    p{
-      font-size: 22px;
-    }
-    h2{
-      font-size: 45px;
-    }
-    img{
-      width:100%;
-    }
-.video_wrapper { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
-
-.video_wrapper iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
   }
 }
+
 }
-}
-
-
-
-
 </style>

@@ -75,7 +75,6 @@ export default {
 @import "../../assets/colors";
 
 body{
-  background: $cGhostWhite;
 
  .big-index-dash-wrapper{
   color:$cBlackGray;
@@ -99,7 +98,7 @@ body{
   .hover-tag{
     &:hover{
         cursor: pointer;
-        text-decoration: underline;
+
     }
   }
   .gifff{

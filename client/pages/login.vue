@@ -77,7 +77,7 @@ export default {
               };
               })
               .catch(({ response: err }) => {
-                if(err.status === 401)this.error='Email sau parolă greșite'; 
+                if(err.status === 401)this.error='Email sau parolă greșite';
               });
               }
 
@@ -89,12 +89,12 @@ export default {
                 this.$store.commit('set', true);
                 this.$store.commit('setUser', response.data);
                 window.location.href = "/";
-                
+
                 }
                 else{
                     this.error = 'Something went wrong...'
                 }
-                });  
+                });
         },
         togglePass() {
             this.seePass = !this.seePass;
@@ -117,19 +117,18 @@ export default {
 @import "../assets/transition";
 
 body{
-    background: $cBlackGray;
     align-content: center;
     .login-big-wrapper{
         @include flexbox();
         @include justify-content(center);
-        @include flex-direction(column);  
-        height: 100vh;  
+        @include flex-direction(column);
+        height: 100vh;
     .wrapper-login{
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         @include flexbox();
         @include justify-content(center);
         @include flex-direction(row);
-        border-radius: 20px  20px  20px 20px ;    
+        border-radius: 20px  20px  20px 20px ;
         height:600px;
         margin: 0 auto;
         .login-credentials{
@@ -139,7 +138,7 @@ body{
 
             padding: 20px;
             @include xl(){border-radius: 0 20px    20px 0; };
-            border-radius: 20px 20px 20px 20px;    
+            border-radius: 20px 20px 20px 20px;
             @include flexbox();
             @include justify-content(space-between);
             @include flex-direction(column);
@@ -168,7 +167,7 @@ body{
                             background: $cBlackGray;
                             height:50px;
                             width:50px;
-                            @include flexbox(); 
+                            @include flexbox();
                             @include justify-content(center);
                             @include flex-direction(column);
                             align-content: center;
@@ -196,12 +195,12 @@ body{
                         @include justify-content(flex-end);
                         &:hover{
                             cursor: pointer;
-                            text-decoration: underline;
+
                         }
                     }
                     label{
                         font-size: 24px;
-                        font-weight: bold; 
+                        font-weight: bold;
                     }
                 }
                 .error-message{
@@ -224,12 +223,12 @@ body{
                     margin: 4px 2px;
                     border: solid 0.5px $cBlackGray;
                     @include transition(all, 0.3s, linear);
-                    
+
                     cursor: pointer;
                     &:hover{
                         background-color: $cGhostWhite;
                         color: $cBlackGray;
-                
+
                     }
                 }
             }
@@ -240,7 +239,7 @@ body{
             height:600px;
             width: auto;
             border-radius: 20px 0  0 20px;
-            
+
         }
     }
 }

@@ -75,7 +75,7 @@
 <ul>
 
 <li>Vizitând acest link: http://vacalmu.live/contact</li>
-</ul> 
+</ul>
     </div>
   </div>
 </template>
@@ -145,15 +145,11 @@ export default {
 
 
 <style lang='scss' >
-  
+
 @import "../assets/flex";
 @import "../assets/colors";
 @import "../assets/screen-size";
 @import "../assets/transition";
-
-body{
-  background: $cBlackGray;
-}
 .container-about {
   margin: 50px auto 10px auto;
   width: 100%;
@@ -173,13 +169,13 @@ body{
     justify-self: center;
     margin: 0 auto;
     width: 95%;
-    
+
     p{
       font-size: 18px;
     }
-    
-   
-  }  
+
+
+  }
 
 }
 

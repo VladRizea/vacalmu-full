@@ -9,22 +9,22 @@ const Categories = require('../models/Categories');
 exports.getFeed = asyncHandler(async (req, res, next) => {
   
     let feed = [];
-    const newArticles = await Article.find({ state: 'ready'}).limit(7).sort('-createdAt');
-    feed.push(newArticles);
+    const newArticles = await Article.find({ state: 'ready'}).limit(8).sort('-createdAt');
+    
+    const half = Math. ceil(newArticles.length / 2);
 
-    console.log(newArticles);
+    const firstHalf = newArticles.splice(0, half)
+    
+    feed.push(firstHalf);
 
-
-    const categories = await Categories
-        .find({ articlesNumber: { $gte: 3 }})
-        .populate({
-        path: 'articles',
-        model: 'Article'
-    })
-
-    console.log(categories);
+    const categories = await Categories.find({}).sort({articlesNumber: -1});
 
     feed.push(categories);
+
+
+    const secondHalf = newArticles.splice(-half)
+
+    feed.push(secondHalf);
 
     res.status(200).json({content: feed});
 });

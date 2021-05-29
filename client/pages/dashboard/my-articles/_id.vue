@@ -6,7 +6,8 @@
         <input id="title" v-model="title"  placeholder="Title" autocomplete="off"/>
         <br><br>
         <textarea id="description" v-model="description"  placeholder="Description" autocomplete="off"></textarea>
-         <br>
+        <br>
+
 
         <textarea id="content" v-model="content"  placeholder="Content" autocomplete="off"></textarea>
 
@@ -31,32 +32,44 @@
         <p v-if="tags.length > 0" class="selected-category"> <span style="color:#090909">Selected tags:</span> <span class="hover-tag" v-for="tag in tags" :key="tag.id" @click="tags.pop(tag)">{{tag}} </span></p>
         <br><br>
 
-        <input id="thumbnail" v-model="thumbnailUrlModel" placeholder="Thumbnail (1920x1080)"/>
+        <input id="recomanded" v-model="recomandedArticlesQuery"  placeholder="Search articles to recomand" autocomplete="off"/>
+
+           <p v-if="selectedArticles.length !== 0">Selected: {{selectedArticles.length}}</p>
+           <p v-if="selectedArticles.length === 3">This is the max!</p>
+
+            <div :class="{'select-article': true, 'added-article': selectedArticles.includes(article._id)}"  v-for="article in recomandedArticles" :key="article.id" :article="article" @click="selectArticle(article)">
+              {{article.title}}
+              <br><br>
+
+            </div>
+
+        <br><br>
+                <div class="">
+          <label for="file" class="custom-file-upload">
+            Upload Thumbnail
+        </label>
+          <input  type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+        </div>
         <br>
         <br>
         <img  v-if="thumbnailUrl"  :src="thumbnailUrl" alt="-">
         <div v-if="thumbnailUrl"><br></div>
 
-        <input id="thumbnail-square" v-model="thumbnailUrlModelSquare" placeholder="Square thumbnail (1080x1080)"/>
-        <br>
-        <br>
-        <img  v-if="thumbnailUrlSquare"  :src="thumbnailUrlSquare" alt="-">
-        <div v-if="thumbnailUrlSquare"><br></div>
-
         <input type="checkbox" name="checkbox" v-model="readyness" @click="setArtState()" id="checkbox">
         <label for="checkbox" class="switch"></label>
             <br>
             <div class="button-section">
-        <a href="/dashboard/my-articles"><button id="post-button" class="button" @click="saveArticle()">save project</button></a>
+        <button id="post-button" class="button" @click="saveArticle()">save project</button>
         <p v-if="thereWasAnError" class="error-text">{{thereWasAnError}}</p>
 
             </div>
+
         <button id="post-button" class="delete-button" @click="deleteArticle()">delete</button>
+
+
         <br>
         <br>
     </div>
-
-    
 </div>
 </template>
 
@@ -70,14 +83,12 @@ export default {
     middleware: 'restricted-routes',
     layout: 'dashboard',
     data(){
-        
+
         return {
         linking: false,
         url: "",
         thumbnailUrl: '',
         thumbnailUrlModel: '',
-        thumbnailUrlSquare: '',
-        thumbnailUrlModelSquare: '',
         categories: [],
         category: '',
         openCat: false,
@@ -90,14 +101,18 @@ export default {
         imgUrl: '',
         state: 'draft',
         imgName: '',
-        readyness: true,
+        readyness: false,
         thereWasAnError: '',
         title: '',
         content: '',
         description: '',
-        
+
+        recomandedArticles: [],
+        recomandedArticlesQuery: '',
+        selectedArticles: [],
+
         }
-        
+
     },
         async asyncData({$axios, route}) {
         let article = [];
@@ -106,7 +121,7 @@ export default {
 
         return {article}; // equivalent to { articles: articles }
     },
-    mounted() { 
+    mounted() {
 
         let app = this;
         this.title = this.article.title;
@@ -117,9 +132,9 @@ export default {
         this.thumbnailUrl = this.article.thumbnail;
         this.thumbnailUrlModel = this.article.thumbnail;
         this.thumbnailUrlSquare = this.article.thumbnailSquare;
-        this.thumbnailUrlModelSquare =  this.article.thumbnailSquare;
-        app.state = this.article.state 
-        this.state === 'ready' ? this.readyness = true  : this.readyness = false; 
+        this.selectedArticles = this.article.recomandedArticles;
+        app.state = this.article.state
+        this.state === 'ready' ? this.readyness = true  : this.readyness = false;
 
     window.onbeforeunload = function() {
     return true;
@@ -127,40 +142,39 @@ export default {
 
         document.getElementById('category').addEventListener('keydown',async function(){
         await axios.get(`/api/v1/categories/search?search=${app.searchCat}`)
-        .then(response => { 
+        .then(response => {
             if(!response.data.data[0]) {app.newCat = app.searchCat;}
             app.categories = response.data.data;
             });
         });
 
-        document.getElementById('thumbnail').addEventListener('paste',async function(){
-            app.thumbnailUrl = app.thumbnailUrlModel
-            app.isThumbnail = true;
+        document.getElementById('recomanded').addEventListener('keydown',async function(){
+
+        await axios.get(`/api/v1/articles/search?search=${app.recomandedArticlesQuery}`)
+        .then(response => {
+            app.recomandedArticles = response.data.data;
+            });
         });
-        document.getElementById('thumbnail').addEventListener('keyup',async function(){        
-           app.thumbnailUrl = app.thumbnailUrlModel
-            app.isThumbnail = true;
-        });
-        document.getElementById('thumbnail').addEventListener('keydown',async function(){
-            app.thumbnailUrl = app.thumbnailUrlModel
-             app.isThumbnail = true;
-        });
-    
-        document.getElementById('thumbnail-square').addEventListener('paste',async function(){
-            app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-            app.isThumbnail = true;
-        });
-        document.getElementById('thumbnail-square').addEventListener('keyup',async function(){        
-           app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-            app.isThumbnail = true;
-        });
-        document.getElementById('thumbnail-square').addEventListener('keydown',async function(){
-            app.thumbnailUrlSquare = app.thumbnailUrlModelSquare
-             app.isThumbnail = true;
-        });
+
+
 
   },
   methods: {
+      selectArticle(article){
+        if (!this.selectedArticles.includes(article._id)) this.selectedArticles.push(article._id);
+        else{
+          for( var i = 0; i < this.selectedArticles.length; i++){
+          if ( this.selectedArticles[i] === article._id) {
+            this.selectedArticles.splice(i, 1);
+          }
+
+          }
+        }
+
+        this.recomandedArticlesQuery = '';
+        this.recomandedArticles = [];
+
+      },
      async deleteArticle(){
           if (confirm("Are you sure you want to delete this article?")){
             await axios.delete(`/api/v1/articles/${this.article._id}`)
@@ -168,16 +182,53 @@ export default {
           .catch(erorr => this.thereWasAnError = 'There was an error and your article was not posted');
           }
       },
+  async handleFileUpload(){
+         this.file = this.$refs.file.files[0];
+
+            let formData = new FormData();
+
+            formData.append('file', this.file);
+
+        await axios.put( '/api/v1/upload',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then((response) => {
+              this.thumbnailUrl = response.data.data;
+
+        })
+        .catch(function(){
+        });
+
+      },
+      selectArticle(article){
+        if (!this.selectedArticles.includes(article._id)) this.selectedArticles.push(article._id);
+        else{
+          for( var i = 0; i < this.selectedArticles.length; i++){
+          if ( this.selectedArticles[i] === article._id) {
+            this.selectedArticles.splice(i, 1);
+          }
+
+          }
+        }
+
+        this.recomandedArticlesQuery = '';
+        this.recomandedArticles = [];
+
+      },
       setArtState(){
           this.readyness === false ? this.state = 'ready' : this.state = 'draft';
       },
       setTag(){
-          this.tags.push(this.tagg); 
+          this.tags.push(this.tagg);
 
           this.tagg = '';
       },
       async addCat() {
-       
+
         if(!this.thumbnailUrlSquare) this.thereWasAnError = 'You need to add a square thumbnail first!'
         else{
          this.category = this.newCat;
@@ -201,19 +252,19 @@ export default {
       },
     async saveArticle(){
         await axios.put(`/api/v1/articles/${this.article._id}`,{
-           
+
             'title':this.title,
             'description': this.description,
             'content': this.content,
             'visible': false,
             'category':this.category,
             'thumbnail':this.thumbnailUrl,
-            'thumbnailSquare':this.thumbnailUrlSquare,
             'tags':this.tags,
             'state' : this.state,
+            'recomandedArticles' : this.selectedArticles,
           },)
           .then()
-          .catch(erorr => this.thereWasAnError = 'There was an error and your article was not posted');
+          .catch(erorr => {this.thereWasAnError = 'There was an error and your article was not posted'; console.log(erorr)});
     },
 
   }
@@ -228,16 +279,15 @@ export default {
 @import "../../../assets/colors";
 
 #editing-body {
-    background: $cGhostWhite;
     margin-left: 160px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
-    
+
 .linking-field{
         @include flexbox();
         @include justify-content(center);
         @include flex-direction(row);
-    
+
     .icon{
         color: gray;
     }
@@ -258,19 +308,19 @@ margin-left: 50px;
     padding: 13px 32px;
     text-align: center;
     text-decoration: none;
-    
+
     font-size: 16px;
     margin: 4px 2px;
     border: solid 0.5px $cErrorRed;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cErrorRed;
         color: $cGhostWhite;
     }
 
-     
+
 }
 .button-section{
         @include flexbox();
@@ -283,19 +333,19 @@ margin-left: 50px;
     padding: 13px 32px;
     text-align: center;
     text-decoration: none;
-    
+
     font-size: 16px;
     margin: 4px 2px;
     border: solid 0.5px $cBlackGray;
     @include transition(all, 0.3s, linear);
-    
+
     cursor: pointer;
     &:hover{
         background-color: $cGhostWhite;
         color: $cBlackGray;
     }
 
-    
+
 }
 
 .error-text{
@@ -365,7 +415,38 @@ margin-left: 50px;
         outline: none;
         background: $cGhostWhite;
     }
+}#recomanded{
+    width: 500px;
+    padding:10px;
+    font-size: 30px;
+    border: none;
+    background: $cGhostWhite;
+
+    &:focus{
+        border-left: 2px solid gray;
+        outline: none;
+        background: $cGhostWhite;
+    }
+    &:active{
+        border-left: 2px solid gray;
+        outline: none;
+        background: $cGhostWhite;
+    }
+
 }
+
+    .select-article{
+      &:hover{
+        cursor: pointer;
+        color: $cAccentColor;
+      }
+    }
+    .added-article{
+
+      color: $cAccentColor;
+
+    }
+
 #tags{
     width: 400px;
     padding:10px;
@@ -385,10 +466,24 @@ margin-left: 50px;
     }
 }
 
+.custom-file-upload{
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: $cGhostWhite;
+    font-size: 30px;
+    background-color: $cBlackGray;
+}
+
+#file{
+  display: none;
+}
+
+
 .hover-tag{
     &:hover{
         cursor: pointer;
-        text-decoration: underline;
+
     }
 }
 

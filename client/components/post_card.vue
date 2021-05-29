@@ -6,6 +6,8 @@
       <p class="description">{{article.description}}</p>
       <div class="buttons">
         <a :href="'/dashboard/my-articles/' +  this.article._id"><button class="button">Edit project</button></a>
+        <div v-if="article.state === 'ready' && !sent" @click="sendEmail()" class="button">Send Email</div>
+        <div v-if="article.state === 'ready' && sent" class="button">Email sended</div>
         <div v-if="article.state === 'ready'" class="button">Published!</div>
       </div>
     </div>
@@ -13,8 +15,24 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+
     props: ['article'],
+    data() {
+      return {
+        sent: false,
+      }
+    },
+    methods: {
+      async sendEmail(){
+        await axios.post('/api/v1/email/article', {
+          'article': this.article,
+        })
+        .then(this.sent = true)
+
+      }
+    },
 }
 </script>
 

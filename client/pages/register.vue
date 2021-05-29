@@ -30,7 +30,7 @@
             <button class="button" @click="registerUser()">Înregistrează-te</button>
         </div>
     </div>
-    
+
 
     </div>
 </div>
@@ -63,16 +63,16 @@ export default {
     },
     mounted(){
         const generatorToken = this.$route.query.generatorToken;
-      
+
     },
     methods:{
 
         registerUser: async function  ()  {
 
             const generatorToken = this.$route.query.generatorToken;
-            
+
             this.error = '';
-            if(!this.password || !this.email || !this.name ) 
+            if(!this.password || !this.email || !this.name )
             {this.error='Completează toate câmpurile!';
             }
             else{
@@ -85,7 +85,7 @@ export default {
           {withCredentials: true})
           .then((response) => {
              if(response.data.success === true) {
-                 
+
                     this.getLoggedUser();
               };
               })
@@ -102,14 +102,14 @@ export default {
             })
             .then((response) => {
                 if(response.data.success === true){
-                this.$store.commit('set', true), 
+                this.$store.commit('set', true),
                 this.$store.commit('setUser', response.data),
-                this.$router.push({path: '/'});                
+                this.$router.push({path: '/'});
                 }
                 else{
                     this.error = 'Something went wrong...'
                 }
-                });  
+                });
         },
         togglePass() {
             this.seePass = !this.seePass;
@@ -132,19 +132,18 @@ export default {
 @import "../assets/transition";
 
 body{
-    background: $cBlackGray;
     align-content: center;
 .register-big-wrapper{
 @include flexbox();
 @include justify-content(center);
-@include flex-direction(column);  
-height: 100vh;  
+@include flex-direction(column);
+height: 100vh;
     .wrapper-register{
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         @include flexbox();
         @include justify-content(center);
         @include flex-direction(row);
-        border-radius: 20px  20px  20px 20px ;    
+        border-radius: 20px  20px  20px 20px ;
         height:600px;
         margin: 0 auto;
 
@@ -155,7 +154,7 @@ height: 100vh;
         width:auto;
         padding: 20px;
         @include xl(){border-radius: 0 20px    20px 0; };
-        border-radius: 20px 20px 20px 20px;    
+        border-radius: 20px 20px 20px 20px;
         @include flexbox();
         @include justify-content(space-between);
         @include flex-direction(column);
@@ -185,7 +184,7 @@ height: 100vh;
                         background: $cBlackGray;
                         height:50px;
                         width:50px;
-                        @include flexbox(); 
+                        @include flexbox();
                         @include justify-content(center);
                         @include flex-direction(column);
                         align-content: center;
@@ -213,12 +212,12 @@ height: 100vh;
                     @include justify-content(flex-end);
                     &:hover{
                         cursor: pointer;
-                        text-decoration: underline;
+
                     }
                 }
                 label{
                     font-size: 24px;
-                    font-weight: bold; 
+                    font-weight: bold;
                 }
             }
             .error-message{
@@ -241,12 +240,12 @@ height: 100vh;
                 margin: 4px 2px;
                 border: solid 0.5px $cBlackGray;
                 @include transition(all, 0.3s, linear);
-                
+
                 cursor: pointer;
                 &:hover{
                     background-color: $cGhostWhite;
                     color: $cBlackGray;
-                
+
                 }
             }
         }
@@ -257,7 +256,7 @@ height: 100vh;
         height:600px;
         width: auto;
         border-radius: 20px 0  0 20px;
-        
+
     }
     }
 }

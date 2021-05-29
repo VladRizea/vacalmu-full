@@ -38,10 +38,7 @@ export default {
         src: './plugins/GoogleAnalytics.js',
         mode: 'client'
     },
-    {
-      src: './plugins/owlCarousel.js',
-      ssr: false,
-  },
+    {src: '~/plugins/splide.client.js',  mode: 'client'},
 ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

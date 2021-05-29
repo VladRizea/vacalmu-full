@@ -17,7 +17,7 @@ exports.getArticles = asyncHandler(async (req, res, next) => {
 //* @access  Private
 exports.postArticle = asyncHandler(async (req, res, next) =>
 {
-  req.body.user = req.user;
+  req.body.user = req.user._id;
   const article = await Article.create(req.body);
 
   const category = await Categories.find({name: article.category})
@@ -29,6 +29,52 @@ exports.postArticle = asyncHandler(async (req, res, next) =>
   
 
   res.status(201).json({ success: true, data: article });
+});
+
+//* @desc    Get a single article by slug
+//* @route   GET /api/v1/articles/single/:slug
+//* @access  Public
+exports.getArticleSlug = asyncHandler(async (req, res, next) => {
+  let article = await Article.find({slug: req.params.slug})
+    .populate({
+    path: 'publisher',
+    model: 'User',
+    select: 'name profilePicture'
+    })
+    .populate(
+    {
+      path: 'recomandedArticles',
+      model: 'Article',
+    }
+    );
+    article = article[0];
+    
+
+  if(!article.publisher){
+    article.publisher = article.user._id;
+    article = await Article.findByIdAndUpdate(article._id, article, {
+      new: true,
+      runValidators: true,
+    })
+    .populate({
+    path: 'publisher',
+    model: 'User',
+    select: 'name profilePicture'
+    })
+  }
+
+  if(!article.recomandedArticles[0]){
+    article.recomandedArticles = await Article.find({ state: 'ready', _id: {$ne: article._id}}).limit(3).sort('-createdAt');
+    await article.populate(
+      {
+        path: 'recomandedArticles',
+        model: 'Article',
+      }
+      ).execPopulate();
+  }
+ 
+
+  res.status(200).json({ succes: true, data: article });
 });
 
 //* @desc    Get a single article
@@ -121,10 +167,15 @@ exports.updateArticle = asyncHandler(async (req, res, next) => {
     await category[0].save();
   }
 
+  req.body.user = req.user;
+  
+
+
   article = await Article.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
+
 
   article.resetSlugAndContent();
 
