@@ -61,7 +61,7 @@ export default {
       let articlesReady = [];
       let articlesDraft = [];
       const userId = store.state.user._id;
-      await $axios.$get(`/api/v1/articles?user._id=${store.state.user._id}`)
+      await $axios.$get(`/api/v1/articles?publisher=${store.state.user._id}`)
       .then(response => {articles = response.data ;});
       for(var i=0; i<articles.length; i++){
         if(articles[i].state === 'public') articlesPublic.push(articles[i]);

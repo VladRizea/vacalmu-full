@@ -12,7 +12,7 @@
         <br>
         <div class="article-author">
           <img class="profile-image" :src="article.publisher.profilePicture" :alt="article.publisher.name">
-          <p class="author-name">de {{article.user.name}}</p>
+          <p class="author-name">de {{article.publisher.name}}</p>
         </div>
         <br>
         <br>

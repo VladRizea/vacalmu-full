@@ -83,7 +83,7 @@ exports.getArticleSlug = asyncHandler(async (req, res, next) => {
 exports.getArticle = asyncHandler(async (req, res, next) => {
   const article = await Article.findById(req.params.id);
 
-  if (article.user._id.toString() != req.user.id && req.user.role !== 'admin')
+  if (article.publisher.toString() != req.user.id && req.user.role !== 'admin')
   {
     return next(
       new ErroResponse(
@@ -110,7 +110,7 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
     );
 
   //! Make sure User is article owner
-  if (article.user._id.toString() != req.user.id && req.user.role !== 'admin')
+  if (article.publisher.toString() != req.user.id && req.user.role !== 'admin')
     return next(
       new ErroResponse(
         `User ${req.params.id} is not authorized to update this article`,
@@ -147,7 +147,7 @@ exports.updateArticle = asyncHandler(async (req, res, next) => {
 
   //! Make sure User is article owner
 
-  if (article.user._id.toString() != req.user.id && req.user.role !== 'admin')
+  if (article.publisher.toString() != req.user.id && req.user.role !== 'admin')
     return next(
       new ErroResponse(
         `User ${req.params.id} is not authorized to update this article`,
@@ -201,7 +201,7 @@ exports.actionArticle = asyncHandler(async (req, res, next) => {
     );
 
   //! Make sure User is article owner
-  if (article.user._id.toString() != req.user.id && req.user.role !== 'admin')
+  if (article.publisher.toString() != req.user.id && req.user.role !== 'admin')
     return next(
       new ErroResponse(
         `User ${req.params.id} is not authorized to update this article`,
