@@ -6,7 +6,7 @@
       <a :href="'/expuneri/' + article.slug" class="description-top-article component-top-article">{{article.description  }}</a>
       <br>
       <div class="component-top-article name-and-date-top-article">
-        <a class=" small-text-top-article" :href="'/publishers/' + article.publisher.name"><b>{{article.user.name}}</b></a>
+        <a class=" small-text-top-article" :href="'/publishers/' + article.publisher.name"><b>{{article.publisher.name}}</b></a>
         <time class=" small-text-top-article" :datetime="article.createdAt"><b>{{new Intl.DateTimeFormat('ro-RO').format(article.createdAt.month)}}</b></time>
       </div>
     </div>

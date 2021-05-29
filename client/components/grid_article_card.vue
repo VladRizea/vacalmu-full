@@ -22,7 +22,7 @@
         <a :href="'/expuneri/' + article.slug" class="description-grid-card ">{{truncate(article.description, 100)}}</a>
 
         <div class="name-and-date-grid-card">
-          <a class=" small-text-grid-card" :href="'/publishers/' + article.user.name">{{article.user.name}}</a>
+          <a class=" small-text-grid-card" :href="'/publishers/' + article.publisher.name">{{article.publisher.name}}</a>
 
           <time class=" small-text-grid-card" :datetime="article.createdAt">{{new Intl.DateTimeFormat('ro-RO').format(new Date(article.createdAt))}}</time>
         </div>

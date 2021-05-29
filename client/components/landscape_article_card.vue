@@ -7,7 +7,7 @@
         <a :href="'/expuneri/' + article.slug" class="description-grid-card component">{{article.description}}</a>
         <br>
         <div class="component name-and-date-grid-card">
-          <a class=" small-text-grid-card" :href="'/publishers/' + article.user.name">{{article.user.name}}</a>
+          <a class=" small-text-grid-card" :href="'/publishers/' + article.publisher.name">{{article.publisher.name}}</a>
           <time class=" small-text-grid-card" :datetime="article.createdAt">{{new Intl.DateTimeFormat('ro-RO').format(new Date(article.createdAt))}}</time>
         </div>
       </div>
@@ -82,12 +82,12 @@ export default {
     &:hover{
       text-decoration: none;
     }
-  }  
+  }
 }
 }
 
 
-@include lg{  
+@include lg{
   @include flexbox();
   @include justify-content(flex-start);
   @include flex-direction(row);
@@ -95,7 +95,7 @@ export default {
   width: 100%;
   height: 30vw;
 
-  
+
   background: $cBlackGray;
   .thumbnail-grid-card{
     height: 30vw;
@@ -136,7 +136,7 @@ export default {
     &:hover{
       text-decoration: none;
     }
-  }  
+  }
 }
 }
 }
