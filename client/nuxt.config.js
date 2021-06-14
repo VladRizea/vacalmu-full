@@ -39,6 +39,7 @@ export default {
         mode: 'client'
     },
     {src: '~/plugins/splide.client.js',  mode: 'client'},
+    { src: '~/plugins/vue-google-adsense', ssr: false },
 ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

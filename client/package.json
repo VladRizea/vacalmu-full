@@ -28,7 +28,9 @@
     "path": "^0.12.7",
     "tiny-slider": "^2.9.3",
     "v-owl-carousel": "^1.0.8",
-    "vue-gtag": "^1.11.0"
+    "vue-google-adsense": "^1.9.3",
+    "vue-gtag": "^1.11.0",
+    "vue-script2": "^2.1.0"
   },
   "devDependencies": {
     "fibers": "^5.0.0",
