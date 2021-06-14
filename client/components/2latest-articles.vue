@@ -3,14 +3,15 @@
     <br><br>
     <h2>Ultimele expuneri</h2>
     <br>
-    <client>
+    <latestArticles  v-for="article in articles"  :key="article._id" :article="article"></latestArticles>
+        <client-only>
     <InFeedAdsense
+    class="in-feed-ad"
     data-ad-layout-key="-g9+11-3r-ff+162"
     data-ad-client="ca-pub-3630292987556158"
     data-ad-slot="4113406495">
     </InFeedAdsense>
-    </client>
-    <latestArticles  v-for="article in articles"  :key="article._id" :article="article"></latestArticles>
+    </client-only>
     <br>
     <a href="/expuneri"><div class="more-articles"><p>Mai mult</p></div></a>
   </div>
@@ -37,12 +38,15 @@ export default{
 
 .latest-articles-component{
   max-width: 1080px;
-
+  width: 100%;
 
   margin: auto 0 auto auto;
   @include flexbox();
   @include justify-content(flex-end);
   @include flex-direction(column);
+  .in-feed-ad{
+    width: 100%;
+  }
   h2{
     font-size: 40px;
     font-weight: bold;

@@ -11,9 +11,6 @@
     <latestArticles :articles="feed[2]"></latestArticles>
     <categoriesComponent :categories="feed[1]"></categoriesComponent>
   </div>
-  <div class="videos">
-
-  </div>
   <div class="follow-cards">
     <followUsCards></followUsCards>
   </div>
