@@ -38,6 +38,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   //* Sorting
 
   if (req.query.sort) {
+    
     const sortby = req.query.sort.split(',').join(' ');
     query = query.sort(sortby);
   } else {

@@ -1,4 +1,5 @@
 const express = require('express');
+const Article = require('../models/Article');
 
 const {
   getCategories,
@@ -16,9 +17,12 @@ const { protect, authorize } = require('../middleware/auth');
 //* Reroute into other resource routers
 
 router.route('/')
-  .get( advancedResults(Categories), getCategories)
-  .post(protect, advancedResults(Categories), postCategories);
+  .get( advancedResults(Categories, {
+    path: 'articles',
+    model: 'Article'
+    }), getCategories)
+  .post(protect, advancedResults(Categories, 'Article'), postCategories);
 router.route('/search')
-  .get(protect, advancedResults(Categories), searchCategories);
+  .get(protect, advancedResults(Categories, 'Article'), searchCategories);
 
 module.exports = router;

@@ -49,7 +49,7 @@ export default {
     async asyncData({$axios, route}) {
       let category = [];
       await $axios.$get(`/api/v1/categories?name=${route.params.id}`)
-      .then(response => {category = response[0];});
+      .then(response => {category = response.data[0];});
     return { category }; // equivalent to { products: products }
     },
     mounted(){

@@ -3,13 +3,13 @@ const Categories = require('../models/Categories');
 
 //* @desc    Get all getCategories
 //* @route   Get /api/v1/categories
-//* @access  Private/Admin
+//* @access  Public
 
 exports.getCategories = asyncHandler(async (req, res, next) => {
 
 
+  //* used for adding related articles to another article
   let searchQuery = req.query.articles;
-
   if(searchQuery == "true"){
   const categories = await Categories
   .find()
@@ -17,30 +17,11 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
   path: 'articles',
   model: 'Article'
   })
-
-
   res.status(200).json(categories);
   return 0;
 }
 
-
-  
-let singleArticle = req.query.name;
-
-if(singleArticle){
-  
-  const categories = await Categories
-  .find({name:singleArticle})
-  .populate({
-  path: 'articles',
-  model: 'Article'
-  })
-  
-  res.status(200).json(categories);
-  return 0;
-
-}
-
+res.advancedResults.data[0].articles.reverse();
 
   res.status(200).json(res.advancedResults);
 });

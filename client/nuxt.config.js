@@ -52,12 +52,12 @@ export default {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     '@nuxtjs/proxy',
-    '@nuxtjs/google-adsense',
+    // '@nuxtjs/google-adsense',
   ],
 
-  'google-adsense': {
-    id: 'ca-pub-3630292987556158'
-  },
+  // 'google-adsense': {
+  //   id: 'ca-pub-3630292987556158'
+  // },
 
 
   axios: {
