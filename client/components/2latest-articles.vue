@@ -44,9 +44,23 @@ export default{
   @include flexbox();
   @include justify-content(flex-end);
   @include flex-direction(column);
-  .in-feed-ad{
-    width: 100%;
+
+@media (min-width: 350px) {
+    .google-auto-placed {
+      height: 180px;
+    }
+}
+ @media (min-width: 500px) {
+    .google-auto-placed {
+      height: 130px;
+    }
   }
+ @media (min-width: 800px) {
+    .google-auto-placed {
+      height: 200px;
+    }
+  }
+
   h2{
     font-size: 40px;
     font-weight: bold;
