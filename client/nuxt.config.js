@@ -39,7 +39,6 @@ export default {
         mode: 'client'
     },
     {src: '~/plugins/splide.client.js',  mode: 'client'},
-    { src: '~/plugins/vue-google-adsense', ssr: false },
 ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -53,12 +52,7 @@ export default {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     '@nuxtjs/proxy',
-    // '@nuxtjs/google-adsense',
   ],
-
-  // 'google-adsense': {
-  //   id: 'ca-pub-3630292987556158'
-  // },
 
 
   axios: {
